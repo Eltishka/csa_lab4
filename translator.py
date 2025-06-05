@@ -1,9 +1,9 @@
 import os
 import sys
 
-from isa import OpCode, OperandType
-from machine import DataPath, RegisterBlock as RB, IO, RegisterBlock
 from astparser import Parser
+from isa import OpCode, OperandType
+from machine import RegisterBlock
 
 
 class LispCompiler:
@@ -16,7 +16,6 @@ class LispCompiler:
         self.static_data_addresses = {}
         self.asm = []
         self.pc = 0
-        self.dp = None
         self.output_addr = 0x10000
         self.input_addr = 0x9996
         self.labels = {}
@@ -26,21 +25,30 @@ class LispCompiler:
         self.return_register = RegisterBlock.Register.R14
         self.current_block_idx = 0
         self.binop2opcode = {
-            '+': OpCode.ADD,
-            '-': OpCode.SUB,
-            '*': OpCode.MUL,
-            '/': OpCode.DIV,
-            'mod': OpCode.RMD,
-            'and': OpCode.AND,
-            'or': OpCode.OR,
+            "+": OpCode.ADD,
+            "-": OpCode.SUB,
+            "*": OpCode.MUL,
+            "/": OpCode.DIV,
+            "mod": OpCode.RMD,
+            "and": OpCode.AND,
+            "or": OpCode.OR,
         }
         self.compare2opcode_inverse = {
-            '<': OpCode.BGE,
-            '>=': OpCode.BL,
-            '=': OpCode.BNE,
-            '!=': OpCode.BE,
-            '>': OpCode.BLE,
-            '<=': OpCode.BGE,
+            "<": OpCode.BGE,
+            ">=": OpCode.BL,
+            "=": OpCode.BNE,
+            "!=": OpCode.BE,
+            ">": OpCode.BLE,
+            "<=": OpCode.BGE,
+        }
+        self.default_exprs_compilers = {
+            "if": self.compile_if,
+            "let": self.compile_let,
+            "setq": self.compile_setq,
+            "loop": self.compile_loop,
+            "return": self.compile_return,
+            "defun": self.compile_defun,
+            "not": self.compile_not,
         }
         parser = Parser()
         self.ast = parser.parse(code)
@@ -82,9 +90,10 @@ class LispCompiler:
 
     def compile(self):
         self.translate_to_instr(OpCode.MOV, OperandType.IMMEDIATE, self.sp, self.sp, self.stack_base)
-        self.translate_to_instr(OpCode.MOV, OperandType.IMMEDIATE, self.heap_pointer, self.heap_pointer, self.heap_pointer_initial)
+        self.translate_to_instr(OpCode.MOV, OperandType.IMMEDIATE, self.heap_pointer, self.heap_pointer,
+                                self.heap_pointer_initial)
         for node in self.ast:
-            if node[0] != 'defun':
+            if node[0] != "defun":
                 self.compile_expr(node, RegisterBlock.Register.R0)
         self.translate_to_instr(OpCode.HALT, OperandType.REG2REG, RegisterBlock.Register.R0, RegisterBlock.Register.R0)
         self.compile_print()
@@ -98,7 +107,7 @@ class LispCompiler:
         self.compile_read()
         self.compile_input_string()
         for node in self.ast:
-            if node[0] == 'defun':
+            if node[0] == "defun":
                 self.compile_expr(node, RegisterBlock.Register.R0)
 
         self.replace_labels()
@@ -130,42 +139,41 @@ class LispCompiler:
         return self.pc
 
     def compile_expr(self, expr, return_reg, local_vars={}, current_block_end=None):
-
         if isinstance(expr, int):
-            self.translate_to_instr(OpCode.MOV, OperandType.IMMEDIATE, return_reg, return_reg, expr)
-            self.translate_to_instr(OpCode.MOV, OperandType.IMMEDIATE, RegisterBlock.Register.R1,
-                                    RegisterBlock.Register.R1, 0)
+            self.compile_int_expr(expr, return_reg)
         elif isinstance(expr, list):
-            if len(expr) == 0:
-                self.compile_empty_list(return_reg)
-            elif isinstance(expr[0], list):
-                for ex in expr:
-                    self.compile_expr(ex, return_reg, local_vars, current_block_end)
-            elif expr[0] in self.binop2opcode:
-                self.compile_binop(expr, return_reg, local_vars)
-            elif expr[0] in self.compare2opcode_inverse:
-                self.compile_comparing(expr, return_reg, local_vars)
-            elif expr[0] == 'if':
-                self.compile_if(expr, return_reg, local_vars, current_block_end)
-            elif expr[0] == 'let':
-                self.compile_let(expr, return_reg, local_vars, current_block_end)
-            elif expr[0] == 'setq':
-                self.compile_setq(expr, return_reg, local_vars, current_block_end)
-            elif expr[0] == 'loop':
-                self.compile_loop(expr, return_reg, local_vars)
-            elif expr[0] == 'return':
-                self.compile_return(expr, return_reg, local_vars, current_block_end)
-            elif expr[0] == 'defun':
-                self.compile_defun(expr, local_vars)
-            elif expr[0] == 'not':
-                self.compile_not(expr, return_reg, local_vars)
-            else:
-                self.compile_call(expr, return_reg, local_vars)
+            self.compile_list_expr(expr, return_reg, local_vars, current_block_end)
         elif isinstance(expr, str):
             if expr in local_vars:
                 self.translate_to_instr(OpCode.MOV, OperandType.INDIRECT_RIGHT, return_reg, self.sp, local_vars[expr])
             elif expr[0][0] == '"' and expr[0][-1] == '"':
                 self.compile_string(expr, return_reg)
+
+    def compile_int_expr(self, expr, return_reg):
+        self.translate_to_instr(OpCode.MOV, OperandType.IMMEDIATE, return_reg, return_reg, expr)
+        self.translate_to_instr(OpCode.MOV, OperandType.IMMEDIATE, RegisterBlock.Register.R1,
+                                RegisterBlock.Register.R1, 0)
+
+    def compile_list_expr(self, expr, return_reg, local_vars={}, current_block_end=None):
+        if len(expr) == 0:
+            self.compile_empty_list(return_reg)
+        elif isinstance(expr[0], list):
+            for ex in expr:
+                self.compile_expr(ex, return_reg, local_vars, current_block_end)
+        elif expr[0] in self.default_exprs_compilers:
+            self.default_exprs_compilers[expr[0]](expr, return_reg, local_vars, current_block_end)
+        elif expr[0] in self.binop2opcode:
+            self.compile_binop(expr, return_reg, local_vars)
+        elif expr[0] in self.compare2opcode_inverse:
+            self.compile_comparing(expr, return_reg, local_vars)
+        else:
+            self.compile_call(expr, return_reg, local_vars)
+
+    def compile_string_expr(self, expr, return_reg, local_vars={}):
+        if expr in local_vars:
+            self.translate_to_instr(OpCode.MOV, OperandType.INDIRECT_RIGHT, return_reg, self.sp, local_vars[expr])
+        elif expr[0][0] == '"' and expr[0][-1] == '"':
+            self.compile_string(expr, return_reg)
 
     def push_reg(self, reg, local_vars={}):
         self.translate_to_instr(OpCode.SUB, OperandType.IMMEDIATE, self.sp, self.sp, 4)
@@ -181,7 +189,7 @@ class LispCompiler:
         for var in local_vars:
             local_vars[var] -= 4
 
-    def compile_binop(self, binop_node, return_reg, local_vars={}):
+    def compile_binop(self, binop_node, return_reg, local_vars={}, current_block_end=None):
         binop = binop_node[0]
         result_reg = RegisterBlock.Register.R7
 
@@ -199,7 +207,7 @@ class LispCompiler:
 
         self.pop_reg(result_reg, local_vars)
 
-    def compile_comparing(self, comparing_node, return_reg, local_vars={}):
+    def compile_comparing(self, comparing_node, return_reg, local_vars={}, current_block_end=None):
         result_reg = RegisterBlock.Register.R7
 
         self.push_reg(result_reg, local_vars)
@@ -226,18 +234,12 @@ class LispCompiler:
 
         self.pop_reg(result_reg, local_vars)
 
-    def compile_not(self, not_node, return_reg, local_vars={}):
-        if len(not_node) < 2:
-            raise Exception('not needs an argument')
+    def compile_not(self, not_node, return_reg, local_vars={}, current_block_end=None):
         self.compile_expr(not_node[1], return_reg, local_vars)
         self.translate_to_instr(OpCode.NOT, OperandType.REG2REG, return_reg, return_reg)
         self.translate_to_instr(OpCode.AND, OperandType.IMMEDIATE, return_reg, return_reg, 1)
 
     def compile_if(self, if_node, return_reg, local_vars={}, current_block_end=None):
-
-        if len(if_node) < 2:
-            raise Exception("if statement should contain a condition block")
-
         self.compile_expr(if_node[1], return_reg, local_vars, current_block_end)
         self.translate_to_instr(OpCode.CMP, OperandType.IMMEDIATE, return_reg, return_reg, 0)
         else_label = self.pc
@@ -276,13 +278,11 @@ class LispCompiler:
         self.translate_to_instr(OpCode.ADD, OperandType.IMMEDIATE, self.sp, self.sp, len(let_node[1]) * 4)
 
     def compile_setq(self, setq_node, register, local_vars={}, current_block_end=None):
-        if not setq_node[1] in local_vars:
-            raise Exception('Unknown variable ' + setq_node[1])
         self.compile_expr(setq_node[2], register, local_vars, current_block_end)
         self.translate_to_instr(OpCode.STORE, OperandType.INDIRECT_RIGHT, register,
                                 self.sp, local_vars[setq_node[1]])
 
-    def compile_loop(self, loop_node, register, local_vars={}):
+    def compile_loop(self, loop_node, register, local_vars={}, current_block_end=None):
         loop_label = self.pc
         self.current_block_idx += 1
         while_name = "while" + str(self.current_block_idx)
@@ -319,22 +319,18 @@ class LispCompiler:
                     self.static_data_addresses[self.asm[idx][-1]])
 
     def compile_return(self, return_node, return_register, local_vars={}, current_block_end=None):
-        if current_block_end is None:
-            raise Exception("No block to return from")
         self.compile_expr(return_node[1], return_register, local_vars, current_block_end)
         self.translate_to_instr(OpCode.JMP, OperandType.IMMEDIATE, return_register,
                                 return_register, current_block_end)
         self.labels_to_replace.append(len(self.asm) - 1)
 
-    def compile_defun(self, defun_node, local_vars={}):
+    def compile_defun(self, defun_node, return_reg, local_vars={}, current_block_end=None):
         name = defun_node[1]
         self.labels[name] = self.pc
         arguments = defun_node[2]
         body = defun_node[3]
 
         fun_local_vars = local_vars.copy()
-
-        # Исправление: аргументы доступны по положительным смещениям [SP+4], [SP+8], ...
         if len(arguments) > 0:
             offset = 0
             for arg in arguments:
@@ -345,14 +341,12 @@ class LispCompiler:
         self.labels[name + "_end"] = self.pc
         self.translate_to_instr(OpCode.RET, OperandType.REG2REG, self.return_register, self.return_register)
 
-    def compile_call(self, call_node, return_reg, local_vars={}):
+    def compile_call(self, call_node, return_reg, local_vars={}, current_block_end=None):
         func_name = call_node[0]
         args = call_node[1:]
         num_args = len(args)
 
-        # 1. Сохраняем адрес возврата
         self.push_reg(self.return_register, local_vars)
-        # 2. Вычисляем и сохраняем аргументы в обратном порядке
         for i in range(num_args - 1, -1, -1):
             self.compile_expr(args[i], RegisterBlock.Register.R3, local_vars)
             self.translate_to_instr(OpCode.SUB, OperandType.IMMEDIATE, self.sp, self.sp, 4)
@@ -362,26 +356,24 @@ class LispCompiler:
 
         self.translate_to_instr(OpCode.MOV, OperandType.IMMEDIATE, RegisterBlock.Register.R2, RegisterBlock.Register.R2,
                                 num_args)
-        # 3. Вызов функции
+
         self.translate_to_instr(OpCode.CALL, OperandType.IMMEDIATE, self.return_register,
                                 self.return_register, func_name)
         self.labels_to_replace.append(len(self.asm) - 1)
 
-        # 4. Очистка стека от аргументов
         if num_args > 0:
             self.translate_to_instr(OpCode.ADD, OperandType.IMMEDIATE, self.sp, self.sp, 4 * num_args)
 
         for var in local_vars:
             local_vars[var] -= 4 * num_args
 
-        # 5. Восстановление адреса возврата
         self.pop_reg(self.return_register, local_vars)
 
         if return_reg != RegisterBlock.Register.R0:
             self.translate_to_instr(OpCode.MOV, OperandType.REG2REG, return_reg, RegisterBlock.Register.R0)
 
     def compile_print(self):
-        self.labels['print'] = self.pc
+        self.labels["print"] = self.pc
         result_reg = RegisterBlock.Register.R3
         self.translate_to_instr(OpCode.MOV, OperandType.INDIRECT_RIGHT, result_reg, self.sp, 0)
 
@@ -415,7 +407,7 @@ class LispCompiler:
                                 1)
 
     def compile_concat(self):
-        self.labels['concat'] = self.pc
+        self.labels["concat"] = self.pc
         self.translate_to_instr(OpCode.MOV, OperandType.REG2REG, RegisterBlock.Register.R0, self.heap_pointer)
         result_reg = RegisterBlock.Register.R3
 
@@ -439,8 +431,8 @@ class LispCompiler:
                                 4)
         self.translate_to_instr(OpCode.RET, OperandType.REG2REG, self.return_register, self.return_register)
 
-    def compile_list(self):  # R2 - len(args)
-        self.labels['list'] = self.pc
+    def compile_list(self):
+        self.labels["list"] = self.pc
         self.current_block_idx += 1
         self.translate_to_instr(OpCode.MOV, OperandType.REG2REG, RegisterBlock.Register.R0, self.heap_pointer)
         cur_el_address = RegisterBlock.Register.R3
@@ -452,9 +444,9 @@ class LispCompiler:
 
         cycle_pointer = self.pc
         self.translate_to_instr(OpCode.CMP, OperandType.IMMEDIATE, loop_counter, loop_counter, 0)
-        self.labels['list_end' + str(self.current_block_idx)] = self.pc
+        self.labels["list_end" + str(self.current_block_idx)] = self.pc
         self.translate_to_instr(OpCode.BE, OperandType.PC_OFFSET, loop_counter, loop_counter,
-                                'list_end' + str(self.current_block_idx))
+                                "list_end" + str(self.current_block_idx))
         self.labels_to_replace.append(len(self.asm) - 1)
 
         self.translate_to_instr(OpCode.MOV, OperandType.INDIRECT_RIGHT, el, cur_el_address, 0)
@@ -468,7 +460,8 @@ class LispCompiler:
         self.translate_to_instr(OpCode.SUB, OperandType.IMMEDIATE, loop_counter, loop_counter, 1)
         self.translate_to_instr(OpCode.JMP, OperandType.PC_OFFSET, loop_counter, loop_counter, cycle_pointer - self.pc)
 
-        self.labels['list_end' + str(self.current_block_idx)] = self.pc - self.labels['list_end' + str(self.current_block_idx)]
+        self.labels["list_end" + str(self.current_block_idx)] = self.pc - self.labels[
+            "list_end" + str(self.current_block_idx)]
         self.translate_to_instr(OpCode.MOV, OperandType.IMMEDIATE, el, el, 0)
         self.translate_to_instr(OpCode.STORE, OperandType.INDIRECT_RIGHT, el,
                                 self.heap_pointer, -4)
@@ -476,13 +469,11 @@ class LispCompiler:
 
     def compile_empty_list(self, return_reg):
         self.translate_to_instr(OpCode.MOV, OperandType.IMMEDIATE, return_reg, return_reg, 0)
+
     def compile_car(self):
-        """Компиляция функции (car list)"""
-        self.labels['car'] = self.pc
-        # Получаем указатель на список из стека
+        self.labels["car"] = self.pc
         self.translate_to_instr(OpCode.MOV, OperandType.INDIRECT_RIGHT,
                                 RegisterBlock.Register.R0, self.sp, 0)
-        # Загружаем car-часть
         self.translate_to_instr(OpCode.MOV, OperandType.INDIRECT_RIGHT,
                                 RegisterBlock.Register.R0, RegisterBlock.Register.R0, 0)
         self.translate_to_instr(OpCode.MOV, OperandType.IMMEDIATE,
@@ -491,28 +482,21 @@ class LispCompiler:
                                 self.return_register, self.return_register)
 
     def compile_cdr(self):
-        """Компиляция функции (cdr list)"""
-        self.labels['cdr'] = self.pc
-        # Получаем указатель на список из стека
+        self.labels["cdr"] = self.pc
         self.translate_to_instr(OpCode.MOV, OperandType.INDIRECT_RIGHT,
                                 RegisterBlock.Register.R0, self.sp, 0)
 
-        # Загружаем cdr-часть
         self.translate_to_instr(OpCode.MOV, OperandType.INDIRECT_RIGHT,
                                 RegisterBlock.Register.R0, RegisterBlock.Register.R0, 4)
         self.translate_to_instr(OpCode.RET, OperandType.REG2REG,
                                 self.return_register, self.return_register)
 
     def compile_null(self):
-        """Компиляция функции (null list)"""
-        self.labels['null'] = self.pc
-        # Получаем указатель на список
+        self.labels["null"] = self.pc
         self.translate_to_instr(OpCode.MOV, OperandType.INDIRECT_RIGHT,
                                 RegisterBlock.Register.R0, self.sp, 0)
-        # Сравниваем с nil (0)
         self.translate_to_instr(OpCode.CMP, OperandType.IMMEDIATE,
                                 RegisterBlock.Register.R0, RegisterBlock.Register.R0, 0)
-        # Устанавливаем результат (1 если nil, 0 иначе)
         self.translate_to_instr(OpCode.MOV, OperandType.IMMEDIATE,
                                 RegisterBlock.Register.R0, RegisterBlock.Register.R0, 0)
         self.translate_to_instr(OpCode.BNE, OperandType.PC_OFFSET,
@@ -523,26 +507,21 @@ class LispCompiler:
                                 self.return_register, self.return_register)
 
     def compile_push(self):
-        """Компиляция функции (push element list)"""
-        self.labels['push'] = self.pc
+        self.labels["push"] = self.pc
 
-        # Получаем элемент и список из стека
         self.translate_to_instr(OpCode.MOV, OperandType.INDIRECT_RIGHT,
-                                RegisterBlock.Register.R2, self.sp, 0)  # element
+                                RegisterBlock.Register.R2, self.sp, 0)
         self.translate_to_instr(OpCode.MOV, OperandType.INDIRECT_RIGHT,
-                                RegisterBlock.Register.R3, self.sp, 4)  # list
+                                RegisterBlock.Register.R3, self.sp, 4)
 
-        # Создаем новую cons-ячейку
         self.translate_to_instr(OpCode.STORE, OperandType.INDIRECT_RIGHT,
-                                RegisterBlock.Register.R2, self.heap_pointer, 0)  # car = element
+                                RegisterBlock.Register.R2, self.heap_pointer, 0)
         self.translate_to_instr(OpCode.STORE, OperandType.INDIRECT_RIGHT,
-                                RegisterBlock.Register.R3, self.heap_pointer, 4)  # cdr = list
+                                RegisterBlock.Register.R3, self.heap_pointer, 4)
 
-        # Возвращаем указатель на новую ячейку
         self.translate_to_instr(OpCode.MOV, OperandType.REG2REG,
                                 RegisterBlock.Register.R0, self.heap_pointer)
 
-        # Увеличиваем указатель кучи
         self.translate_to_instr(OpCode.ADD, OperandType.IMMEDIATE,
                                 self.heap_pointer, self.heap_pointer, 8)
 
@@ -550,50 +529,32 @@ class LispCompiler:
                                 self.return_register, self.return_register)
 
     def compile_nreverse(self):
-        """Компиляция функции (nreverse list) - разрушающее обращение списка"""
-        self.labels['nreverse'] = self.pc
 
-        # Регистры:
-        # R1 - предыдущий элемент (prev)
-        # R2 - текущий элемент (current)
-        # R3 - следующий элемент (next)
-        # R4 - временное хранение значения
-
-        # Инициализация: prev = nil (0)
+        self.labels["nreverse"] = self.pc
         self.translate_to_instr(OpCode.MOV, OperandType.IMMEDIATE,
                                 RegisterBlock.Register.R1, RegisterBlock.Register.R1, 0)
-
-        # Загружаем входной список (current)
         self.translate_to_instr(OpCode.MOV, OperandType.INDIRECT_RIGHT,
                                 RegisterBlock.Register.R2, self.sp, 0)
 
-        # Основной цикл
         loop_start = self.pc
 
-        # Проверка на конец списка (current == nil?)
         self.translate_to_instr(OpCode.CMP, OperandType.IMMEDIATE,
                                 RegisterBlock.Register.R2, RegisterBlock.Register.R2, 0)
         self.translate_to_instr(OpCode.BE, OperandType.PC_OFFSET,
-                                RegisterBlock.Register.R0, RegisterBlock.Register.R0, 20)  # Выход
+                                RegisterBlock.Register.R0, RegisterBlock.Register.R0, 20)
 
-        # Получаем next = current->cdr (следующий элемент)
         self.translate_to_instr(OpCode.MOV, OperandType.INDIRECT_RIGHT,
-                                RegisterBlock.Register.R3, RegisterBlock.Register.R2, 4)  # cdr по смещению +4
+                                RegisterBlock.Register.R3, RegisterBlock.Register.R2, 4)
 
-        # Меняем current->cdr = prev
         self.translate_to_instr(OpCode.STORE, OperandType.INDIRECT_RIGHT,
-                                RegisterBlock.Register.R1, RegisterBlock.Register.R2, 4)  # сохраняем prev в cdr
+                                RegisterBlock.Register.R1, RegisterBlock.Register.R2, 4)
 
-        # Перемещаем указатели:
-        # prev = current
         self.translate_to_instr(OpCode.MOV, OperandType.REG2REG,
                                 RegisterBlock.Register.R1, RegisterBlock.Register.R2)
 
-        # current = next
         self.translate_to_instr(OpCode.MOV, OperandType.REG2REG,
                                 RegisterBlock.Register.R2, RegisterBlock.Register.R3)
 
-        # Повторяем цикл
         self.translate_to_instr(OpCode.JMP, OperandType.PC_OFFSET,
                                 RegisterBlock.Register.R0, RegisterBlock.Register.R0, loop_start - self.pc)
 
@@ -605,7 +566,7 @@ class LispCompiler:
                                 self.return_register, self.return_register)
 
     def compile_read(self):
-        self.labels['read'] = self.pc
+        self.labels["read"] = self.pc
         return_reg = RegisterBlock.Register.R0
         self.translate_to_instr(OpCode.MOV, OperandType.IMMEDIATE, RegisterBlock.Register.R2, RegisterBlock.Register.R2,
                                 self.input_addr)
@@ -615,7 +576,7 @@ class LispCompiler:
         self.translate_to_instr(OpCode.RET, OperandType.REG2REG, self.return_register, self.return_register)
 
     def compile_input_string(self):
-        self.labels['input-string'] = self.pc
+        self.labels["input-string"] = self.pc
         return_reg = RegisterBlock.Register.R3
         self.translate_to_instr(OpCode.MOV, OperandType.REG2REG, RegisterBlock.Register.R0, self.heap_pointer)
         self.translate_to_instr(OpCode.MOV, OperandType.IMMEDIATE, RegisterBlock.Register.R2, RegisterBlock.Register.R2,
@@ -646,7 +607,6 @@ def main(source, target):
 
     os.makedirs(os.path.dirname(os.path.abspath(target)) or ".", exist_ok=True)
 
-    # Запишим выходные файлы
     if target.endswith(".bin"):
         with open(target, "wb") as f:
             f.write(binary_code)

@@ -23,7 +23,7 @@ def test_translator_and_machine(golden, caplog):
         target_hex = os.path.join(tmpdirname, "target.bin.hex")
         inp = golden["in_stdin"]
         if golden["null_terminated_in"] == 1:
-            inp += '\0'
+            inp += "\0"
         with open(source, "w", encoding="utf-8") as file:
             file.write(golden["in_source"])
         with open(input_stream, "w", encoding="utf-8") as file:
@@ -34,10 +34,10 @@ def test_translator_and_machine(golden, caplog):
             machine.main(target, input_stream, golden["char_io"])
 
         with open(target, "rb") as file:
-            code = file.read()
+            file.read()
         with open(target_hex, encoding="utf-8") as file:
             code_hex = file.read()
-        #assert code == golden.out["out_code"]
+
         assert code_hex == golden.out["out_code_hex"]
         assert stdout.getvalue() == golden.out["out_stdout"]
-        #assert caplog.text + "EOF" == golden.out["out_log"]
+
