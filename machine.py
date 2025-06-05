@@ -35,6 +35,7 @@ class Sel:
         Register: int = 0
         ALU: int = 1
         ZERO: int = 3
+        PC: int = 4
 
     class RightALU(Enum):
         REGISTER: int = 0
@@ -76,13 +77,15 @@ class Sel:
         NOT_NEGATIVE: int = 1
         ZERO: int = 2
         NOT_ZERO: int = 3
-        OVERFLOW: int = 4
-        NOT_OVERFLOW: int = 5
-        CARRY: int = 6
-        NOT_CARRY: int = 7
+        LESS_EQUALS: int = 4
+        GREATER: int = 5
         GREATER_EQUALS: int = 8
         LESS: int = 9
         NONE: int = 10
+
+    class DR(Enum):
+        LOW: int = 0
+        FULL: int = 1
 
 
 class RegisterBlock:
@@ -142,7 +145,7 @@ class DataPath:
 
         self.reg_out1: RegisterBlock.Register = None
         self.reg_out2: RegisterBlock.Register = None
-        self.reg_in: RegisterBlock.Register = None
+
         self.register_block: RegisterBlock = RegisterBlock()
 
         self.input_addr = input_addr
@@ -160,12 +163,14 @@ class DataPath:
 
     def write(self, sel: Sel.DataIn):
         if self.address_register == self.output_addr:
+
             if sel == Sel.DataIn.REGISTER:
-                self.io.output.append(chr(self.register_block.registers[self.reg_out1]))
+                self.io.output.append(self.register_block.registers[self.reg_out1])
             elif sel == Sel.DataIn.ALU:
-                self.io.output.append(chr(self.alu.result))
+                self.io.output.append(self.alu.result)
             elif sel == Sel.DataIn.PC:
                 self.io.output.append(self.control_unit.program_counter)
+
         else:
             if sel == Sel.DataIn.REGISTER:
 
@@ -187,8 +192,12 @@ class DataPath:
         if sel == Sel.AR.ALU:
             self.address_register = self.alu.result
 
-    def latch_data_register(self):
+    def latch_data_register(self, sel: Sel.DR):
+
         if self.address_register == self.input_addr:
+            if len(self.io.input) < 1:
+                raise EOFError
+
             self.data_register = self.io.input[0]
             self.io.input = self.io.input[1:]
         else:
@@ -196,7 +205,11 @@ class DataPath:
                                  (self.memory[self.address_register + 1] << 16) | \
                                  (self.memory[self.address_register + 2] << 8) | \
                                  self.memory[self.address_register + 3]
-
+        if sel == Sel.DR.LOW:
+            mask = 0x0000FFFF
+            self.data_register = self.data_register & mask
+            if (self.data_register >> 15) == 1:
+                self.data_register |= 0xFFFF0000
 
     def latch_register(self, sel: Sel.RegisterIn):
         if sel == Sel.RegisterIn.REGISTER:
@@ -274,6 +287,9 @@ class ALU:
             self.right = 0
 
     def latch_left_alu(self, sel: Sel.LeftALU):
+        if sel == Sel.LeftALU.PC:
+            self.left = self.datapath.control_unit.program_counter
+
         if sel == Sel.LeftALU.Register:
             self.left = self.datapath.register_block.registers[RegisterBlock.Register(self.datapath.reg_out2)]
         if sel == Sel.LeftALU.ALU:
@@ -390,7 +406,7 @@ class ControlUnit:
     def __init__(self, datapath: DataPath):
         self.datapath = datapath
         self.datapath.control_unit = self
-        self.instruction_register = [0] * 4
+        self.instruction_register = [None] * 4
         self.program_counter: int = 0
         self.mPC: int = 0
         self.tick: int = 0
@@ -414,47 +430,46 @@ class ControlUnit:
         self.type_to_mPC = {
             OperandType.REG2REG: 1,
             OperandType.INDIRECT_RIGHT: 2,
-            OperandType.INDIRECT_LEFT: 7,
-            OperandType.IMMEDIATE: 10
+            OperandType.PC_OFFSET: 5,
+            OperandType.IMMEDIATE: 6
         }
 
         self.opcode_to_mPC = {
-            OpCode.HALT: 13,
-            OpCode.ADD: 14,
-            OpCode.ADC: 16,
-            OpCode.SUB: 18,
-            OpCode.MUL: 20,
-            OpCode.DIV: 22,
-            OpCode.RMD: 24,
-            OpCode.AND: 26,
-            OpCode.OR: 28,
-            OpCode.XOR: 30,
-            OpCode.NEG: 32,
-            OpCode.NOT: 34,
-            OpCode.SAL: 36,
-            OpCode.SAR: 38,
-            OpCode.CMP: 40,
-            OpCode.MOV: 41,
-            OpCode.STORE: 42,
-            OpCode.CALL: 43,
-            OpCode.RET: 44,
-            OpCode.BE: 45,
-            OpCode.BNE: 46,
-            OpCode.BGE: 47,
-            OpCode.BL: 48,
-            OpCode.BCS: 49,
-            OpCode.BCC: 50,
-            OpCode.BVS: 51,
-            OpCode.BVC: 52,
-            OpCode.BNS: 53,
-            OpCode.BNC: 54,
-            OpCode.JMP: 55
+            OpCode.HALT: 13 - 4,
+            OpCode.ADD: 14 - 4,
+            OpCode.ADC: 16 - 4,
+            OpCode.SUB: 18 - 4,
+            OpCode.MUL: 20 - 4,
+            OpCode.DIV: 22 - 4,
+            OpCode.RMD: 24 - 4,
+            OpCode.AND: 26 - 4,
+            OpCode.OR: 28 - 4,
+            OpCode.XOR: 30 - 4,
+            OpCode.NEG: 32 - 4,
+            OpCode.NOT: 34 - 4,
+            OpCode.SAL: 36 - 4,
+            OpCode.SAR: 38 - 4,
+            OpCode.CMP: 40 - 4,
+            OpCode.MOV: 41 - 4,
+            OpCode.STORE: 42 - 4,
+            OpCode.STORE_IMM: 43 - 4,
+            OpCode.CALL: 43 - 3,
+            OpCode.RET: 44 - 3,
+            OpCode.BE: 45 - 3,
+            OpCode.BNE: 46 - 3,
+            OpCode.BGE: 47 - 3,
+            OpCode.BL: 48 - 3,
+            OpCode.BLE: 49 - 3,
+            OpCode.BG: 50 - 3,
+            OpCode.BNS: 53 - 5,
+            OpCode.BNC: 54 - 5,
+            OpCode.JMP: 55 - 5
         }
         self.mProgram = [
             # INSTRUCTION FETCH 0
             [
                 (Signal.LATCH_AR, Sel.AR.PC),
-                (Signal.LATCH_DR),
+                (Signal.LATCH_DR, Sel.DR.LOW),
                 (Signal.LATCH_IR),
                 (Signal.SELECT_REGS),
                 (Signal.LATCH_mPC, Sel.mPC.OP_FETCH)
@@ -469,16 +484,7 @@ class ControlUnit:
                 (Signal.LATCH_PC, Sel.PC.PLUS_TWO),
                 (Signal.LATCH_mPC, Sel.mPC.OPCODE)
             ],
-            # REG [REG + n] 2
-            [
-                (Signal.LATCH_PC, Sel.PC.PLUS_TWO),
-                (Signal.LATCH_mPC, Sel.mPC.PLUS_ONE),
-            ],
-            [
-                (Signal.LATCH_AR, Sel.AR.PC),
-                (Signal.LATCH_DR),
-                (Signal.LATCH_mPC, Sel.mPC.PLUS_ONE),
-            ],
+            # REG [REG + n]  # 2
             [
                 (Signal.LATCH_RIGHT_ALU, Sel.RightALU.DR),
                 (Signal.LATCH_LEFT_ALU, Sel.LeftALU.Register),
@@ -487,7 +493,7 @@ class ControlUnit:
             ],
             [
                 (Signal.LATCH_AR, Sel.AR.ALU),
-                (Signal.LATCH_DR),
+                (Signal.LATCH_DR, Sel.DR.FULL),
                 (Signal.LATCH_mPC, Sel.mPC.PLUS_ONE),
             ],
             [
@@ -497,31 +503,22 @@ class ControlUnit:
                 (Signal.LATCH_PC, Sel.PC.PLUS_FOUR),
                 (Signal.LATCH_mPC, Sel.mPC.OPCODE),
             ],
-            # [REG + n] REG # 7
-            [
-                (Signal.LATCH_PC, Sel.PC.PLUS_TWO),
-                (Signal.LATCH_mPC, Sel.mPC.PLUS_ONE),
-            ],
-            [
-                (Signal.LATCH_AR, Sel.AR.PC),
-                (Signal.LATCH_DR),
-                (Signal.LATCH_mPC, Sel.mPC.PLUS_ONE),
-            ],
+            # PC_OFFSET
             [
                 (Signal.LATCH_RIGHT_ALU, Sel.RightALU.DR),
-                (Signal.LATCH_LEFT_ALU, Sel.LeftALU.Register),
+                (Signal.LATCH_LEFT_ALU, Sel.LeftALU.PC),
                 (Signal.EXECUTE_ALU, ALU.Operations.ADD),
                 (Signal.LATCH_PC, Sel.PC.PLUS_FOUR),
-                (Signal.LATCH_mPC, Sel.mPC.OPCODE),
+                (Signal.LATCH_mPC, Sel.mPC.OPCODE)
             ],
-            # REG IMM 10
+            # REG IMM 6
             [
                 (Signal.LATCH_PC, Sel.PC.PLUS_TWO),
                 (Signal.LATCH_mPC, Sel.mPC.PLUS_ONE)
             ],
             [
                 (Signal.LATCH_AR, Sel.AR.PC),
-                (Signal.LATCH_DR),
+                (Signal.LATCH_DR, Sel.DR.FULL),
                 (Signal.LATCH_mPC, Sel.mPC.PLUS_ONE)
             ],
             [
@@ -705,7 +702,15 @@ class ControlUnit:
                 (Signal.LATCH_REGISTER, Sel.RegisterIn.ALU),
                 (Signal.LATCH_mPC, Sel.mPC.ZERO),
             ],
-            # STORE [REG + n], REG 42
+            #  [REG + n], REG for STORE 42
+            [
+                (Signal.LATCH_RIGHT_ALU, Sel.RightALU.DR),
+                (Signal.LATCH_LEFT_ALU, Sel.LeftALU.Register),
+                (Signal.EXECUTE_ALU, ALU.Operations.ADD),
+                (Signal.LATCH_PC, Sel.PC.PLUS_FOUR),
+                (Signal.LATCH_mPC, Sel.mPC.PLUS_ONE),
+            ],
+            # STORE
             [
                 (Signal.LATCH_AR, Sel.AR.ALU),
                 (Signal.WRITE, Sel.DataIn.REGISTER),
@@ -746,27 +751,15 @@ class ControlUnit:
                 (Signal.LATCH_PC, Sel.PC.BRANCH),
                 (Signal.LATCH_mPC, Sel.mPC.ZERO),
             ],
-            # BCS 49
+            # BLE 49
             [
-                (Signal.CHECK_CONDITION, Sel.Condition.CARRY),
+                (Signal.CHECK_CONDITION, Sel.Condition.LESS_EQUALS),
                 (Signal.LATCH_PC, Sel.PC.BRANCH),
                 (Signal.LATCH_mPC, Sel.mPC.ZERO),
             ],
-            # BCC 50
+            # BG 50
             [
-                (Signal.CHECK_CONDITION, Sel.Condition.NOT_CARRY),
-                (Signal.LATCH_PC, Sel.PC.BRANCH),
-                (Signal.LATCH_mPC, Sel.mPC.ZERO),
-            ],
-            # BVS 51
-            [
-                (Signal.CHECK_CONDITION, Sel.Condition.OVERFLOW),
-                (Signal.LATCH_PC, Sel.PC.BRANCH),
-                (Signal.LATCH_mPC, Sel.mPC.ZERO),
-            ],
-            # BVC 52
-            [
-                (Signal.CHECK_CONDITION, Sel.Condition.NOT_OVERFLOW),
+                (Signal.CHECK_CONDITION, Sel.Condition.GREATER),
                 (Signal.LATCH_PC, Sel.PC.BRANCH),
                 (Signal.LATCH_mPC, Sel.mPC.ZERO),
             ],
@@ -798,11 +791,11 @@ class ControlUnit:
         self.datapath.reg_out2 = self.instruction_register[3]
 
     def latch_instruction_register(self):
-        self.instruction_register[0] = OpCode((self.datapath.data_register >> 26) & 0b111111)  # opcode (6 бит)
-        self.instruction_register[1] = OperandType((self.datapath.data_register >> 24) & 0b11)  # тип (2 бита)
+        self.instruction_register[0] = OpCode(self.datapath.memory[self.datapath.address_register] >> 2)  # opcode (6 бит)
+        self.instruction_register[1] = OperandType(self.datapath.memory[self.datapath.address_register] & 0b11)  # тип (2 бита)
         self.instruction_register[2] = RegisterBlock.Register(
-            (self.datapath.data_register >> 20) & 0b1111)  # reg1 (4 бита)
-        self.instruction_register[3] = RegisterBlock.Register((self.datapath.data_register >> 16) & 0b1111)
+            self.datapath.memory[self.datapath.address_register + 1] >> 4)  # reg1 (4 бита)
+        self.instruction_register[3] = RegisterBlock.Register(self.datapath.memory[self.datapath.address_register + 1] & 0b00001111) # reg2 (4 бита)
 
     def latch_program_counter(self, sel: Sel.PC):
         if sel == Sel.PC.BRANCH:
@@ -822,11 +815,11 @@ class ControlUnit:
     def latch_mPC(self, sel: Sel.mPC):
         if sel == Sel.mPC.ZERO:
             self.mPC = 0
-        if sel == Sel.mPC.PLUS_ONE:
+        elif sel == Sel.mPC.PLUS_ONE:
             self.mPC += 1
-        if sel == Sel.mPC.OP_FETCH:
+        elif sel == Sel.mPC.OP_FETCH and (self.instruction_register[0].value >> 5) == 0:
             self.mPC = self.type_to_mPC[self.instruction_register[1]]
-        if sel == Sel.mPC.OPCODE:
+        elif sel == Sel.mPC.OPCODE or (self.instruction_register[0].value >> 5) == 1:
             self.mPC = self.opcode_to_mPC[self.instruction_register[0]]
         # TODO opcode
 
@@ -840,20 +833,20 @@ class ControlUnit:
             self.branch_condition = self.datapath.alu.latched_flags[ALU.Flags.NEGATIVE]
         elif sel == Sel.Condition.NOT_NEGATIVE:
             self.branch_condition = not self.datapath.alu.latched_flags[ALU.Flags.NEGATIVE]
-        elif sel == Sel.Condition.OVERFLOW:
-            self.branch_condition = self.datapath.alu.latched_flags[ALU.Flags.OVERFLOW]
-        elif sel == Sel.Condition.NOT_OVERFLOW:
-            self.branch_condition = not self.datapath.alu.latched_flags[ALU.Flags.OVERFLOW]
-        elif sel == Sel.Condition.CARRY:
-            self.branch_condition = self.datapath.alu.latched_flags[ALU.Flags.CARRY]
-        elif sel == Sel.Condition.NOT_CARRY:
-            self.branch_condition = not self.datapath.alu.latched_flags[ALU.Flags.CARRY]
         elif sel == Sel.Condition.GREATER_EQUALS:
             self.branch_condition = self.datapath.alu.latched_flags[ALU.Flags.OVERFLOW] == \
                                     self.datapath.alu.latched_flags[ALU.Flags.NEGATIVE]
         elif sel == Sel.Condition.LESS:
             self.branch_condition = self.datapath.alu.latched_flags[ALU.Flags.OVERFLOW] != \
                                     self.datapath.alu.latched_flags[ALU.Flags.NEGATIVE]
+        elif sel == Sel.Condition.LESS_EQUALS:
+            self.branch_condition = self.datapath.alu.latched_flags[ALU.Flags.OVERFLOW] != \
+                                    self.datapath.alu.latched_flags[ALU.Flags.NEGATIVE] or \
+                                    not self.datapath.alu.latched_flags[ALU.Flags.ZERO]
+        elif sel == Sel.Condition.GREATER:
+            self.branch_condition = self.datapath.alu.latched_flags[ALU.Flags.OVERFLOW] == \
+                                    self.datapath.alu.latched_flags[ALU.Flags.NEGATIVE] or \
+                                    self.datapath.alu.latched_flags[ALU.Flags.ZERO]
         elif sel == Sel.Condition.NONE:
             self.branch_condition = True
 
@@ -866,21 +859,42 @@ class ControlUnit:
                 self.signals[action]()
         self.tick += 1
 
+    def __repr__(self):
+        """Вернуть строковое представление состояния процессора."""
+        if self.instruction_register[0] is None:
+            return "TICK: 0"
+        components = [
+            f"TICK:{self.tick:6}",
+            f"PC:{self.program_counter:4}",
+            f"REG1:{str(self.datapath.reg_out1):12}",
+            f"REG1_VAL:{self.datapath.register_block.registers[self.datapath.reg_out1]:8}",
+            f"REG2:{str(self.datapath.reg_out2):12}",
+            f"REG2_VAL:{self.datapath.register_block.registers[self.datapath.reg_out2]:8}",
+            " ".join(str(i) for i in self.instruction_register)
+        ]
+        return " ".join(components)
+
+
 def simulation(memory_init, input_tokens, data_memory_size, limit):
     io = IO(input_tokens)
-    dp = DataPath(io, 100000, 0x9996, 0x10000)
+    dp = DataPath(io, data_memory_size, 0x9996, 0x10000)
 
     idx = 0
     for i in memory_init:
         dp.memory[idx] = i
+
+
         idx += 1
 
     control_unit = ControlUnit(dp)
-    logging.debug("%s", control_unit)
+
+    logging.debug("%s", control_unit, extra={'skip_filename': True})
     try:
         while control_unit.tick < limit:
             control_unit.process_next_tick()
-            logging.debug("%s", control_unit)
+            if control_unit.tick <= 100:
+                logging.debug("%s", control_unit, extra={'skip_filename': True})
+
     except EOFError:
         logging.warning("Input buffer is empty!")
     except StopIteration:
@@ -888,11 +902,11 @@ def simulation(memory_init, input_tokens, data_memory_size, limit):
 
     if control_unit.tick >= limit:
         logging.warning("Limit exceeded!")
-    logging.info("output_buffer: %s", repr("".join(dp.io.output)))
-    return "".join(dp.io.output), control_unit.tick
+    logging.info("output_buffer: %s", repr("".join(str(dp.io.output))))
+    return dp.io.output, control_unit.tick
 
 
-def main(code_file, input_file):
+def main(code_file, input_file, char_io=True):
     with open(code_file, "rb") as file:
         binary_code = file.read()
     code = bytearray(binary_code)
@@ -902,19 +916,25 @@ def main(code_file, input_file):
         for char in input_text:
             input_token.append(char)
 
+    if char_io:
+        input_token = [ord(ch) for ch in input_token]
+
     output, ticks = simulation(
         code,
         input_tokens=input_token,
-        data_memory_size=100,
-        limit=2000,
+        data_memory_size=100000,
+        limit=4000000,
     )
-
+    if char_io:
+        output = [chr(num) for num in output]
+    else:
+        output = [str(num) for num in output]
     print("".join(output))
     print("ticks:", ticks)
 
 
 if __name__ == "__main__":
     logging.getLogger().setLevel(logging.DEBUG)
-    assert len(sys.argv) == 3, "Wrong arguments: machine.py <code_file> <input_file>"
-    _, code_file, input_file = sys.argv
-    main(code_file, input_file)
+    assert len(sys.argv) >= 3, "Wrong arguments: machine.py <code_file> <input_file>"
+    _, code_file, input_file, char_io = sys.argv
+    main(code_file, input_file, char_io)

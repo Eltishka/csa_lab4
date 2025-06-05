@@ -18,23 +18,24 @@ class OpCode(Enum):
     SAR: int = 13
     CMP: int = 14
     MOV: int = 15
-    STORE: int = 16
-    CALL: int = 17
-    RET: int = 18
-    BE: int = 19
-    BNE: int = 20 #TODO
-    BGE: int = 21
-    BL: int = 22
-    BCS: int = 23
-    BCC: int = 24
-    BVS: int = 25
-    BVC: int = 26
-    BNS: int = 27
-    BNC: int = 28
-    JMP: int = 29
+    CALL: int = 16
+    RET: int = 17
+    BE: int = 18
+    BNE: int = 19
+    BGE: int = 20
+    BL: int = 21
+    BLE: int = 22
+    BG: int = 23
+    BVS: int = 24
+    BVC: int = 25
+    BNS: int = 26
+    BNC: int = 27
+    JMP: int = 28
+    STORE_IMM: int = 29
+    STORE: int = 48
+
 class OperandType(Enum):
     REG2REG: int = 0
     INDIRECT_RIGHT: int = 1
-    INDIRECT_LEFT: int = 2
+    PC_OFFSET: int = 2
     IMMEDIATE: int = 3
-
