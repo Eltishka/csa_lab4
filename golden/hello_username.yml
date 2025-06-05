@@ -6,257 +6,256 @@ in_stdin: |-
 null_terminated_in: 1
 char_io: 1
 out_code_hex: |-
-  0     - 3FFF00002328 - MOV R15, 9000
-  6     - 3FDD00000BB8 - MOV R13, 3000
-  12    - 0FFF00000004 - SUB R15, 4
-  18    - 0FFF00000004 - SUB R15, 4
+  0     - 2FFF00002328 - MOV R15, 9000
+  6     - 2FDD00000BB8 - MOV R13, 3000
+  12    - 0BFF00000004 - SUB R15, 4
+  18    - 0BFF00000004 - SUB R15, 4
   24    - C1EF0000     - STORE R14, [R15 + 0]
-  28    - 3F2200000000 - MOV R2, 0
-  34    - 43EE00000262 - CALL R14, 610
-  40    - 3DEF0000     - MOV R14, [R15 + 0]
+  28    - 2F2200000000 - MOV R2, 0
+  34    - 33EE00000262 - CALL R14, 610
+  40    - 2DEF0000     - MOV R14, [R15 + 0]
   44    - 07FF00000004 - ADD R15, 4
   50    - C10F0000     - STORE R0, [R15 + 0]
-  54    - 0FFF00000004 - SUB R15, 4
+  54    - 0BFF00000004 - SUB R15, 4
   60    - C1EF0000     - STORE R14, [R15 + 0]
-  64    - 0FFF00000004 - SUB R15, 4
+  64    - 0BFF00000004 - SUB R15, 4
   70    - C1EF0000     - STORE R14, [R15 + 0]
-  74    - 3F330000028E - MOV R3, 654
-  80    - 3F1100000001 - MOV R1, 1
-  86    - 0FFF00000004 - SUB R15, 4
+  74    - 2F330000028E - MOV R3, 654
+  80    - 2F1100000001 - MOV R1, 1
+  86    - 0BFF00000004 - SUB R15, 4
   92    - C13F0000     - STORE R3, [R15 + 0]
-  96    - 0FFF00000004 - SUB R15, 4
+  96    - 0BFF00000004 - SUB R15, 4
   102   - C1EF0000     - STORE R14, [R15 + 0]
-  106   - 3D3F0010     - MOV R3, [R15 + 16]
-  110   - 0FFF00000004 - SUB R15, 4
+  106   - 2D3F0010     - MOV R3, [R15 + 16]
+  110   - 0BFF00000004 - SUB R15, 4
   116   - C13F0000     - STORE R3, [R15 + 0]
-  120   - 3F3300000296 - MOV R3, 662
-  126   - 3F1100000001 - MOV R1, 1
-  132   - 0FFF00000004 - SUB R15, 4
+  120   - 2F3300000296 - MOV R3, 662
+  126   - 2F1100000001 - MOV R1, 1
+  132   - 0BFF00000004 - SUB R15, 4
   138   - C13F0000     - STORE R3, [R15 + 0]
-  142   - 3F2200000002 - MOV R2, 2
-  148   - 43EE0000013A - CALL R14, 314
+  142   - 2F2200000002 - MOV R2, 2
+  148   - 33EE0000013A - CALL R14, 314
   154   - 07FF00000008 - ADD R15, 8
-  160   - 3DEF0000     - MOV R14, [R15 + 0]
+  160   - 2DEF0000     - MOV R14, [R15 + 0]
   164   - 07FF00000004 - ADD R15, 4
-  170   - 3C30         - MOV R3, R0
-  172   - 0FFF00000004 - SUB R15, 4
+  170   - 2C30         - MOV R3, R0
+  172   - 0BFF00000004 - SUB R15, 4
   178   - C13F0000     - STORE R3, [R15 + 0]
-  182   - 3F2200000002 - MOV R2, 2
-  188   - 43EE0000013A - CALL R14, 314
+  182   - 2F2200000002 - MOV R2, 2
+  188   - 33EE0000013A - CALL R14, 314
   194   - 07FF00000008 - ADD R15, 8
-  200   - 3DEF0000     - MOV R14, [R15 + 0]
+  200   - 2DEF0000     - MOV R14, [R15 + 0]
   204   - 07FF00000004 - ADD R15, 4
-  210   - 3C30         - MOV R3, R0
-  212   - 0FFF00000004 - SUB R15, 4
+  210   - 2C30         - MOV R3, R0
+  212   - 0BFF00000004 - SUB R15, 4
   218   - C13F0000     - STORE R3, [R15 + 0]
-  222   - 3F2200000001 - MOV R2, 1
-  228   - 43EE00000102 - CALL R14, 258
+  222   - 2F2200000001 - MOV R2, 1
+  228   - 33EE00000102 - CALL R14, 258
   234   - 07FF00000004 - ADD R15, 4
-  240   - 3DEF0000     - MOV R14, [R15 + 0]
+  240   - 2DEF0000     - MOV R14, [R15 + 0]
   244   - 07FF00000004 - ADD R15, 4
   250   - 07FF00000004 - ADD R15, 4
   256   - 0000         - HALT R0, R0
-  258   - 3D3F0000     - MOV R3, [R15 + 0]
-  262   - 3B1100000000 - CMP R1, 0
-  268   - 4E33000E     - BNE PC + 14
-  272   - 773300010000 - STORE_IMM R3, 65536
-  278   - 72330022     - JMP PC + 34
-  282   - 3D230000     - MOV R2, [R3 + 0]
-  286   - 3B2200000000 - CMP R2, 0
-  292   - 4A330014     - BE PC + 20
-  296   - 772200010000 - STORE_IMM R2, 65536
+  258   - 2D3F0000     - MOV R3, [R15 + 0]
+  262   - 2B1100000000 - CMP R1, 0
+  268   - 3E33000E     - BNE PC + 14
+  272   - 5B3300010000 - STORE_IMM R3, 65536
+  278   - 56330022     - JMP PC + 34
+  282   - 2D230000     - MOV R2, [R3 + 0]
+  286   - 2B2200000000 - CMP R2, 0
+  292   - 3A330014     - BE PC + 20
+  296   - 5B2200010000 - STORE_IMM R2, 65536
   302   - 073300000004 - ADD R3, 4
-  308   - 7233FFE6     - JMP PC + -26
-  312   - 44EE         - RET R14, R14
-  314   - 3C0D         - MOV R0, R13
-  316   - 3D3F0000     - MOV R3, [R15 + 0]
-  320   - 3D230000     - MOV R2, [R3 + 0]
-  324   - 3B2200000000 - CMP R2, 0
-  330   - 4A330018     - BE PC + 24
+  308   - 5633FFE6     - JMP PC + -26
+  312   - 34EE         - RET R14, R14
+  314   - 2C0D         - MOV R0, R13
+  316   - 2D3F0000     - MOV R3, [R15 + 0]
+  320   - 2D230000     - MOV R2, [R3 + 0]
+  324   - 2B2200000000 - CMP R2, 0
+  330   - 3A330018     - BE PC + 24
   334   - C12D0000     - STORE R2, [R13 + 0]
   338   - 073300000004 - ADD R3, 4
   344   - 07DD00000004 - ADD R13, 4
-  350   - 7233FFE2     - JMP PC + -30
-  354   - 3D3F0004     - MOV R3, [R15 + 4]
-  358   - 3D230000     - MOV R2, [R3 + 0]
-  362   - 3B2200000000 - CMP R2, 0
-  368   - 4A330018     - BE PC + 24
+  350   - 5633FFE2     - JMP PC + -30
+  354   - 2D3F0004     - MOV R3, [R15 + 4]
+  358   - 2D230000     - MOV R2, [R3 + 0]
+  362   - 2B2200000000 - CMP R2, 0
+  368   - 3A330018     - BE PC + 24
   372   - C12D0000     - STORE R2, [R13 + 0]
   376   - 073300000004 - ADD R3, 4
   382   - 07DD00000004 - ADD R13, 4
-  388   - 7233FFE2     - JMP PC + -30
+  388   - 5633FFE2     - JMP PC + -30
   392   - C12D0000     - STORE R2, [R13 + 0]
   396   - 07DD00000004 - ADD R13, 4
-  402   - 44EE         - RET R14, R14
-  404   - 3C0D         - MOV R0, R13
-  406   - 3C42         - MOV R4, R2
-  408   - 3C3F         - MOV R3, R15
-  410   - 3B4400000000 - CMP R4, 0
-  416   - 4A440026     - BE PC + 38
-  420   - 3D530000     - MOV R5, [R3 + 0]
+  402   - 34EE         - RET R14, R14
+  404   - 2C0D         - MOV R0, R13
+  406   - 2C42         - MOV R4, R2
+  408   - 2C3F         - MOV R3, R15
+  410   - 2B4400000000 - CMP R4, 0
+  416   - 3A440026     - BE PC + 38
+  420   - 2D530000     - MOV R5, [R3 + 0]
   424   - C15D0000     - STORE R5, [R13 + 0]
   428   - 07DD00000008 - ADD R13, 8
   434   - C1DDFFFC     - STORE R13, [R13 + -4]
   438   - 073300000004 - ADD R3, 4
-  444   - 0F4400000001 - SUB R4, 1
-  450   - 7244FFD8     - JMP PC + -40
-  454   - 3F5500000000 - MOV R5, 0
+  444   - 0B4400000001 - SUB R4, 1
+  450   - 5644FFD8     - JMP PC + -40
+  454   - 2F5500000000 - MOV R5, 0
   460   - C15DFFFC     - STORE R5, [R13 + -4]
-  464   - 44EE         - RET R14, R14
-  466   - 3D0F0000     - MOV R0, [R15 + 0]
-  470   - 3D000000     - MOV R0, [R0 + 0]
-  474   - 3F1100000000 - MOV R1, 0
-  480   - 44EE         - RET R14, R14
-  482   - 3D0F0000     - MOV R0, [R15 + 0]
-  486   - 3D000004     - MOV R0, [R0 + 4]
-  490   - 44EE         - RET R14, R14
-  492   - 3D0F0000     - MOV R0, [R15 + 0]
-  496   - 3B0000000000 - CMP R0, 0
-  502   - 3F0000000000 - MOV R0, 0
-  508   - 4E00000A     - BNE PC + 10
-  512   - 3F0000000001 - MOV R0, 1
-  518   - 44EE         - RET R14, R14
-  520   - 3D2F0000     - MOV R2, [R15 + 0]
-  524   - 3D3F0004     - MOV R3, [R15 + 4]
+  464   - 34EE         - RET R14, R14
+  466   - 2D0F0000     - MOV R0, [R15 + 0]
+  470   - 2D000000     - MOV R0, [R0 + 0]
+  474   - 2F1100000000 - MOV R1, 0
+  480   - 34EE         - RET R14, R14
+  482   - 2D0F0000     - MOV R0, [R15 + 0]
+  486   - 2D000004     - MOV R0, [R0 + 4]
+  490   - 34EE         - RET R14, R14
+  492   - 2D0F0000     - MOV R0, [R15 + 0]
+  496   - 2B0000000000 - CMP R0, 0
+  502   - 2F0000000000 - MOV R0, 0
+  508   - 3E00000A     - BNE PC + 10
+  512   - 2F0000000001 - MOV R0, 1
+  518   - 34EE         - RET R14, R14
+  520   - 2D2F0000     - MOV R2, [R15 + 0]
+  524   - 2D3F0004     - MOV R3, [R15 + 4]
   528   - C12D0000     - STORE R2, [R13 + 0]
   532   - C13D0004     - STORE R3, [R13 + 4]
-  536   - 3C0D         - MOV R0, R13
+  536   - 2C0D         - MOV R0, R13
   538   - 07DD00000008 - ADD R13, 8
-  544   - 44EE         - RET R14, R14
-  546   - 3F1100000000 - MOV R1, 0
-  552   - 3D2F0000     - MOV R2, [R15 + 0]
-  556   - 3B2200000000 - CMP R2, 0
-  562   - 4A000014     - BE PC + 20
-  566   - 3D320004     - MOV R3, [R2 + 4]
+  544   - 34EE         - RET R14, R14
+  546   - 2F1100000000 - MOV R1, 0
+  552   - 2D2F0000     - MOV R2, [R15 + 0]
+  556   - 2B2200000000 - CMP R2, 0
+  562   - 3A000014     - BE PC + 20
+  566   - 2D320004     - MOV R3, [R2 + 4]
   570   - C1120004     - STORE R1, [R2 + 4]
-  574   - 3C12         - MOV R1, R2
-  576   - 3C23         - MOV R2, R3
-  578   - 7200FFEA     - JMP PC + -22
-  582   - 3C01         - MOV R0, R1
-  584   - 3F1100000000 - MOV R1, 0
-  590   - 44EE         - RET R14, R14
-  592   - 3F2200009996 - MOV R2, 39318
-  598   - 3D020000     - MOV R0, [R2 + 0]
-  602   - 3F1100000000 - MOV R1, 0
-  608   - 44EE         - RET R14, R14
-  610   - 3C0D         - MOV R0, R13
-  612   - 3F2200009996 - MOV R2, 39318
-  618   - 3D320000     - MOV R3, [R2 + 0]
+  574   - 2C12         - MOV R1, R2
+  576   - 2C23         - MOV R2, R3
+  578   - 5600FFEA     - JMP PC + -22
+  582   - 2C01         - MOV R0, R1
+  584   - 2F1100000000 - MOV R1, 0
+  590   - 34EE         - RET R14, R14
+  592   - 2F2200009996 - MOV R2, 39318
+  598   - 2D020000     - MOV R0, [R2 + 0]
+  602   - 2F1100000000 - MOV R1, 0
+  608   - 34EE         - RET R14, R14
+  610   - 2C0D         - MOV R0, R13
+  612   - 2F2200009996 - MOV R2, 39318
+  618   - 2D320000     - MOV R3, [R2 + 0]
   622   - C13D0000     - STORE R3, [R13 + 0]
   626   - 07DD00000004 - ADD R13, 4
-  632   - 3B3300000000 - CMP R3, 0
-  638   - 4A330008     - BE PC + 8
-  642   - 7233FFE8     - JMP PC + -24
-  646   - 3F1100000001 - MOV R1, 1
-  652   - 44EE         - RET R14, R14
+  632   - 2B3300000000 - CMP R3, 0
+  638   - 3A330008     - BE PC + 8
+  642   - 5633FFE8     - JMP PC + -24
+  646   - 2F1100000001 - MOV R1, 1
+  652   - 34EE         - RET R14, R14
   654 - 0000002100000000 - "!"
   662 - 00000048000000650000006C0000006C0000006F0000002C0000002000000000 - "Hello, "
 out_stdout: |
   instructions: 143
   ============================================================
   Hello, foo!
-  ticks: 1433
+  ticks: 2397
 out_log: |
-  DEBUG    root:machine.py:892 TICK: 0
-  DEBUG    root:machine.py:897 TICK:     1 PC:   0 REG1:Register.R15 REG1_VAL:       0 REG2:Register.R15 REG2_VAL:       0 OpCode.MOV OperandType.IMMEDIATE Register.R15 Register.R15
-  DEBUG    root:machine.py:897 TICK:     2 PC:   2 REG1:Register.R15 REG1_VAL:       0 REG2:Register.R15 REG2_VAL:       0 OpCode.MOV OperandType.IMMEDIATE Register.R15 Register.R15
-  DEBUG    root:machine.py:897 TICK:     3 PC:   2 REG1:Register.R15 REG1_VAL:       0 REG2:Register.R15 REG2_VAL:       0 OpCode.MOV OperandType.IMMEDIATE Register.R15 Register.R15
-  DEBUG    root:machine.py:897 TICK:     4 PC:   6 REG1:Register.R15 REG1_VAL:       0 REG2:Register.R15 REG2_VAL:       0 OpCode.MOV OperandType.IMMEDIATE Register.R15 Register.R15
-  DEBUG    root:machine.py:897 TICK:     5 PC:   6 REG1:Register.R15 REG1_VAL:    9000 REG2:Register.R15 REG2_VAL:    9000 OpCode.MOV OperandType.IMMEDIATE Register.R15 Register.R15
-  DEBUG    root:machine.py:897 TICK:     6 PC:   6 REG1:Register.R13 REG1_VAL:       0 REG2:Register.R13 REG2_VAL:       0 OpCode.MOV OperandType.IMMEDIATE Register.R13 Register.R13
-  DEBUG    root:machine.py:897 TICK:     7 PC:   8 REG1:Register.R13 REG1_VAL:       0 REG2:Register.R13 REG2_VAL:       0 OpCode.MOV OperandType.IMMEDIATE Register.R13 Register.R13
-  DEBUG    root:machine.py:897 TICK:     8 PC:   8 REG1:Register.R13 REG1_VAL:       0 REG2:Register.R13 REG2_VAL:       0 OpCode.MOV OperandType.IMMEDIATE Register.R13 Register.R13
-  DEBUG    root:machine.py:897 TICK:     9 PC:  12 REG1:Register.R13 REG1_VAL:       0 REG2:Register.R13 REG2_VAL:       0 OpCode.MOV OperandType.IMMEDIATE Register.R13 Register.R13
-  DEBUG    root:machine.py:897 TICK:    10 PC:  12 REG1:Register.R13 REG1_VAL:    3000 REG2:Register.R13 REG2_VAL:    3000 OpCode.MOV OperandType.IMMEDIATE Register.R13 Register.R13
-  DEBUG    root:machine.py:897 TICK:    11 PC:  12 REG1:Register.R15 REG1_VAL:    9000 REG2:Register.R15 REG2_VAL:    9000 OpCode.SUB OperandType.IMMEDIATE Register.R15 Register.R15
-  DEBUG    root:machine.py:897 TICK:    12 PC:  14 REG1:Register.R15 REG1_VAL:    9000 REG2:Register.R15 REG2_VAL:    9000 OpCode.SUB OperandType.IMMEDIATE Register.R15 Register.R15
-  DEBUG    root:machine.py:897 TICK:    13 PC:  14 REG1:Register.R15 REG1_VAL:    9000 REG2:Register.R15 REG2_VAL:    9000 OpCode.SUB OperandType.IMMEDIATE Register.R15 Register.R15
-  DEBUG    root:machine.py:897 TICK:    14 PC:  18 REG1:Register.R15 REG1_VAL:    9000 REG2:Register.R15 REG2_VAL:    9000 OpCode.SUB OperandType.IMMEDIATE Register.R15 Register.R15
-  DEBUG    root:machine.py:897 TICK:    15 PC:  18 REG1:Register.R15 REG1_VAL:    9000 REG2:Register.R15 REG2_VAL:    9000 OpCode.SUB OperandType.IMMEDIATE Register.R15 Register.R15
-  DEBUG    root:machine.py:897 TICK:    16 PC:  18 REG1:Register.R15 REG1_VAL:    8996 REG2:Register.R15 REG2_VAL:    8996 OpCode.SUB OperandType.IMMEDIATE Register.R15 Register.R15
-  DEBUG    root:machine.py:897 TICK:    17 PC:  18 REG1:Register.R14 REG1_VAL:       0 REG2:Register.R15 REG2_VAL:    8996 OpCode.STORE OperandType.INDIRECT_LEFT Register.R14 Register.R15
-  DEBUG    root:machine.py:897 TICK:    18 PC:  20 REG1:Register.R14 REG1_VAL:       0 REG2:Register.R15 REG2_VAL:    8996 OpCode.STORE OperandType.INDIRECT_LEFT Register.R14 Register.R15
-  DEBUG    root:machine.py:897 TICK:    19 PC:  20 REG1:Register.R14 REG1_VAL:       0 REG2:Register.R15 REG2_VAL:    8996 OpCode.STORE OperandType.INDIRECT_LEFT Register.R14 Register.R15
-  DEBUG    root:machine.py:897 TICK:    20 PC:  24 REG1:Register.R14 REG1_VAL:       0 REG2:Register.R15 REG2_VAL:    8996 OpCode.STORE OperandType.INDIRECT_LEFT Register.R14 Register.R15
-  DEBUG    root:machine.py:897 TICK:    21 PC:  24 REG1:Register.R14 REG1_VAL:       0 REG2:Register.R15 REG2_VAL:    8996 OpCode.STORE OperandType.INDIRECT_LEFT Register.R14 Register.R15
-  DEBUG    root:machine.py:897 TICK:    22 PC:  24 REG1:Register.R2  REG1_VAL:       0 REG2:Register.R2  REG2_VAL:       0 OpCode.MOV OperandType.IMMEDIATE Register.R2 Register.R2
-  DEBUG    root:machine.py:897 TICK:    23 PC:  26 REG1:Register.R2  REG1_VAL:       0 REG2:Register.R2  REG2_VAL:       0 OpCode.MOV OperandType.IMMEDIATE Register.R2 Register.R2
-  DEBUG    root:machine.py:897 TICK:    24 PC:  26 REG1:Register.R2  REG1_VAL:       0 REG2:Register.R2  REG2_VAL:       0 OpCode.MOV OperandType.IMMEDIATE Register.R2 Register.R2
-  DEBUG    root:machine.py:897 TICK:    25 PC:  30 REG1:Register.R2  REG1_VAL:       0 REG2:Register.R2  REG2_VAL:       0 OpCode.MOV OperandType.IMMEDIATE Register.R2 Register.R2
-  DEBUG    root:machine.py:897 TICK:    26 PC:  30 REG1:Register.R2  REG1_VAL:       0 REG2:Register.R2  REG2_VAL:       0 OpCode.MOV OperandType.IMMEDIATE Register.R2 Register.R2
-  DEBUG    root:machine.py:897 TICK:    27 PC:  30 REG1:Register.R14 REG1_VAL:       0 REG2:Register.R14 REG2_VAL:       0 OpCode.CALL OperandType.IMMEDIATE Register.R14 Register.R14
-  DEBUG    root:machine.py:897 TICK:    28 PC:  32 REG1:Register.R14 REG1_VAL:       0 REG2:Register.R14 REG2_VAL:       0 OpCode.CALL OperandType.IMMEDIATE Register.R14 Register.R14
-  DEBUG    root:machine.py:897 TICK:    29 PC:  32 REG1:Register.R14 REG1_VAL:       0 REG2:Register.R14 REG2_VAL:       0 OpCode.CALL OperandType.IMMEDIATE Register.R14 Register.R14
-  DEBUG    root:machine.py:897 TICK:    30 PC:  36 REG1:Register.R14 REG1_VAL:       0 REG2:Register.R14 REG2_VAL:       0 OpCode.CALL OperandType.IMMEDIATE Register.R14 Register.R14
-  DEBUG    root:machine.py:897 TICK:    31 PC: 718 REG1:Register.R14 REG1_VAL:      36 REG2:Register.R14 REG2_VAL:      36 OpCode.CALL OperandType.IMMEDIATE Register.R14 Register.R14
-  DEBUG    root:machine.py:897 TICK:    32 PC: 718 REG1:Register.R0  REG1_VAL:       0 REG2:Register.R13 REG2_VAL:    3000 OpCode.MOV OperandType.REG2REG Register.R0 Register.R13
-  DEBUG    root:machine.py:897 TICK:    33 PC: 720 REG1:Register.R0  REG1_VAL:       0 REG2:Register.R13 REG2_VAL:    3000 OpCode.MOV OperandType.REG2REG Register.R0 Register.R13
-  DEBUG    root:machine.py:897 TICK:    34 PC: 720 REG1:Register.R0  REG1_VAL:    3000 REG2:Register.R13 REG2_VAL:    3000 OpCode.MOV OperandType.REG2REG Register.R0 Register.R13
-  DEBUG    root:machine.py:897 TICK:    35 PC: 720 REG1:Register.R2  REG1_VAL:       0 REG2:Register.R2  REG2_VAL:       0 OpCode.MOV OperandType.IMMEDIATE Register.R2 Register.R2
-  DEBUG    root:machine.py:897 TICK:    36 PC: 722 REG1:Register.R2  REG1_VAL:       0 REG2:Register.R2  REG2_VAL:       0 OpCode.MOV OperandType.IMMEDIATE Register.R2 Register.R2
-  DEBUG    root:machine.py:897 TICK:    37 PC: 722 REG1:Register.R2  REG1_VAL:       0 REG2:Register.R2  REG2_VAL:       0 OpCode.MOV OperandType.IMMEDIATE Register.R2 Register.R2
-  DEBUG    root:machine.py:897 TICK:    38 PC: 726 REG1:Register.R2  REG1_VAL:       0 REG2:Register.R2  REG2_VAL:       0 OpCode.MOV OperandType.IMMEDIATE Register.R2 Register.R2
-  DEBUG    root:machine.py:897 TICK:    39 PC: 726 REG1:Register.R2  REG1_VAL:   39318 REG2:Register.R2  REG2_VAL:   39318 OpCode.MOV OperandType.IMMEDIATE Register.R2 Register.R2
-  DEBUG    root:machine.py:897 TICK:    40 PC: 726 REG1:Register.R3  REG1_VAL:       0 REG2:Register.R2  REG2_VAL:   39318 OpCode.MOV OperandType.INDIRECT_RIGHT Register.R3 Register.R2
-  DEBUG    root:machine.py:897 TICK:    41 PC: 728 REG1:Register.R3  REG1_VAL:       0 REG2:Register.R2  REG2_VAL:   39318 OpCode.MOV OperandType.INDIRECT_RIGHT Register.R3 Register.R2
-  DEBUG    root:machine.py:897 TICK:    42 PC: 728 REG1:Register.R3  REG1_VAL:       0 REG2:Register.R2  REG2_VAL:   39318 OpCode.MOV OperandType.INDIRECT_RIGHT Register.R3 Register.R2
-  DEBUG    root:machine.py:897 TICK:    43 PC: 728 REG1:Register.R3  REG1_VAL:       0 REG2:Register.R2  REG2_VAL:   39318 OpCode.MOV OperandType.INDIRECT_RIGHT Register.R3 Register.R2
-  DEBUG    root:machine.py:897 TICK:    44 PC: 728 REG1:Register.R3  REG1_VAL:       0 REG2:Register.R2  REG2_VAL:   39318 OpCode.MOV OperandType.INDIRECT_RIGHT Register.R3 Register.R2
-  DEBUG    root:machine.py:897 TICK:    45 PC: 732 REG1:Register.R3  REG1_VAL:       0 REG2:Register.R2  REG2_VAL:   39318 OpCode.MOV OperandType.INDIRECT_RIGHT Register.R3 Register.R2
-  DEBUG    root:machine.py:897 TICK:    46 PC: 732 REG1:Register.R3  REG1_VAL:     102 REG2:Register.R2  REG2_VAL:   39318 OpCode.MOV OperandType.INDIRECT_RIGHT Register.R3 Register.R2
-  DEBUG    root:machine.py:897 TICK:    47 PC: 732 REG1:Register.R3  REG1_VAL:     102 REG2:Register.R13 REG2_VAL:    3000 OpCode.STORE OperandType.INDIRECT_LEFT Register.R3 Register.R13
-  DEBUG    root:machine.py:897 TICK:    48 PC: 734 REG1:Register.R3  REG1_VAL:     102 REG2:Register.R13 REG2_VAL:    3000 OpCode.STORE OperandType.INDIRECT_LEFT Register.R3 Register.R13
-  DEBUG    root:machine.py:897 TICK:    49 PC: 734 REG1:Register.R3  REG1_VAL:     102 REG2:Register.R13 REG2_VAL:    3000 OpCode.STORE OperandType.INDIRECT_LEFT Register.R3 Register.R13
-  DEBUG    root:machine.py:897 TICK:    50 PC: 738 REG1:Register.R3  REG1_VAL:     102 REG2:Register.R13 REG2_VAL:    3000 OpCode.STORE OperandType.INDIRECT_LEFT Register.R3 Register.R13
-  DEBUG    root:machine.py:897 TICK:    51 PC: 738 REG1:Register.R3  REG1_VAL:     102 REG2:Register.R13 REG2_VAL:    3000 OpCode.STORE OperandType.INDIRECT_LEFT Register.R3 Register.R13
-  DEBUG    root:machine.py:897 TICK:    52 PC: 738 REG1:Register.R13 REG1_VAL:    3000 REG2:Register.R13 REG2_VAL:    3000 OpCode.ADD OperandType.IMMEDIATE Register.R13 Register.R13
-  DEBUG    root:machine.py:897 TICK:    53 PC: 740 REG1:Register.R13 REG1_VAL:    3000 REG2:Register.R13 REG2_VAL:    3000 OpCode.ADD OperandType.IMMEDIATE Register.R13 Register.R13
-  DEBUG    root:machine.py:897 TICK:    54 PC: 740 REG1:Register.R13 REG1_VAL:    3000 REG2:Register.R13 REG2_VAL:    3000 OpCode.ADD OperandType.IMMEDIATE Register.R13 Register.R13
-  DEBUG    root:machine.py:897 TICK:    55 PC: 744 REG1:Register.R13 REG1_VAL:    3000 REG2:Register.R13 REG2_VAL:    3000 OpCode.ADD OperandType.IMMEDIATE Register.R13 Register.R13
-  DEBUG    root:machine.py:897 TICK:    56 PC: 744 REG1:Register.R13 REG1_VAL:    3000 REG2:Register.R13 REG2_VAL:    3000 OpCode.ADD OperandType.IMMEDIATE Register.R13 Register.R13
-  DEBUG    root:machine.py:897 TICK:    57 PC: 744 REG1:Register.R13 REG1_VAL:    3004 REG2:Register.R13 REG2_VAL:    3004 OpCode.ADD OperandType.IMMEDIATE Register.R13 Register.R13
-  DEBUG    root:machine.py:897 TICK:    58 PC: 744 REG1:Register.R3  REG1_VAL:     102 REG2:Register.R3  REG2_VAL:     102 OpCode.CMP OperandType.IMMEDIATE Register.R3 Register.R3
-  DEBUG    root:machine.py:897 TICK:    59 PC: 746 REG1:Register.R3  REG1_VAL:     102 REG2:Register.R3  REG2_VAL:     102 OpCode.CMP OperandType.IMMEDIATE Register.R3 Register.R3
-  DEBUG    root:machine.py:897 TICK:    60 PC: 746 REG1:Register.R3  REG1_VAL:     102 REG2:Register.R3  REG2_VAL:     102 OpCode.CMP OperandType.IMMEDIATE Register.R3 Register.R3
-  DEBUG    root:machine.py:897 TICK:    61 PC: 750 REG1:Register.R3  REG1_VAL:     102 REG2:Register.R3  REG2_VAL:     102 OpCode.CMP OperandType.IMMEDIATE Register.R3 Register.R3
-  DEBUG    root:machine.py:897 TICK:    62 PC: 750 REG1:Register.R3  REG1_VAL:     102 REG2:Register.R3  REG2_VAL:     102 OpCode.CMP OperandType.IMMEDIATE Register.R3 Register.R3
-  DEBUG    root:machine.py:897 TICK:    63 PC: 750 REG1:Register.R3  REG1_VAL:     102 REG2:Register.R3  REG2_VAL:     102 OpCode.BE OperandType.IMMEDIATE Register.R3 Register.R3
-  DEBUG    root:machine.py:897 TICK:    64 PC: 752 REG1:Register.R3  REG1_VAL:     102 REG2:Register.R3  REG2_VAL:     102 OpCode.BE OperandType.IMMEDIATE Register.R3 Register.R3
-  DEBUG    root:machine.py:897 TICK:    65 PC: 752 REG1:Register.R3  REG1_VAL:     102 REG2:Register.R3  REG2_VAL:     102 OpCode.BE OperandType.IMMEDIATE Register.R3 Register.R3
-  DEBUG    root:machine.py:897 TICK:    66 PC: 756 REG1:Register.R3  REG1_VAL:     102 REG2:Register.R3  REG2_VAL:     102 OpCode.BE OperandType.IMMEDIATE Register.R3 Register.R3
-  DEBUG    root:machine.py:897 TICK:    67 PC: 756 REG1:Register.R3  REG1_VAL:     102 REG2:Register.R3  REG2_VAL:     102 OpCode.BE OperandType.IMMEDIATE Register.R3 Register.R3
-  DEBUG    root:machine.py:897 TICK:    68 PC: 756 REG1:Register.R3  REG1_VAL:     102 REG2:Register.R3  REG2_VAL:     102 OpCode.JMP OperandType.IMMEDIATE Register.R3 Register.R3
-  DEBUG    root:machine.py:897 TICK:    69 PC: 758 REG1:Register.R3  REG1_VAL:     102 REG2:Register.R3  REG2_VAL:     102 OpCode.JMP OperandType.IMMEDIATE Register.R3 Register.R3
-  DEBUG    root:machine.py:897 TICK:    70 PC: 758 REG1:Register.R3  REG1_VAL:     102 REG2:Register.R3  REG2_VAL:     102 OpCode.JMP OperandType.IMMEDIATE Register.R3 Register.R3
-  DEBUG    root:machine.py:897 TICK:    71 PC: 762 REG1:Register.R3  REG1_VAL:     102 REG2:Register.R3  REG2_VAL:     102 OpCode.JMP OperandType.IMMEDIATE Register.R3 Register.R3
-  DEBUG    root:machine.py:897 TICK:    72 PC: 726 REG1:Register.R3  REG1_VAL:     102 REG2:Register.R3  REG2_VAL:     102 OpCode.JMP OperandType.IMMEDIATE Register.R3 Register.R3
-  DEBUG    root:machine.py:897 TICK:    73 PC: 726 REG1:Register.R3  REG1_VAL:     102 REG2:Register.R2  REG2_VAL:   39318 OpCode.MOV OperandType.INDIRECT_RIGHT Register.R3 Register.R2
-  DEBUG    root:machine.py:897 TICK:    74 PC: 728 REG1:Register.R3  REG1_VAL:     102 REG2:Register.R2  REG2_VAL:   39318 OpCode.MOV OperandType.INDIRECT_RIGHT Register.R3 Register.R2
-  DEBUG    root:machine.py:897 TICK:    75 PC: 728 REG1:Register.R3  REG1_VAL:     102 REG2:Register.R2  REG2_VAL:   39318 OpCode.MOV OperandType.INDIRECT_RIGHT Register.R3 Register.R2
-  DEBUG    root:machine.py:897 TICK:    76 PC: 728 REG1:Register.R3  REG1_VAL:     102 REG2:Register.R2  REG2_VAL:   39318 OpCode.MOV OperandType.INDIRECT_RIGHT Register.R3 Register.R2
-  DEBUG    root:machine.py:897 TICK:    77 PC: 728 REG1:Register.R3  REG1_VAL:     102 REG2:Register.R2  REG2_VAL:   39318 OpCode.MOV OperandType.INDIRECT_RIGHT Register.R3 Register.R2
-  DEBUG    root:machine.py:897 TICK:    78 PC: 732 REG1:Register.R3  REG1_VAL:     102 REG2:Register.R2  REG2_VAL:   39318 OpCode.MOV OperandType.INDIRECT_RIGHT Register.R3 Register.R2
-  DEBUG    root:machine.py:897 TICK:    79 PC: 732 REG1:Register.R3  REG1_VAL:     111 REG2:Register.R2  REG2_VAL:   39318 OpCode.MOV OperandType.INDIRECT_RIGHT Register.R3 Register.R2
-  DEBUG    root:machine.py:897 TICK:    80 PC: 732 REG1:Register.R3  REG1_VAL:     111 REG2:Register.R13 REG2_VAL:    3004 OpCode.STORE OperandType.INDIRECT_LEFT Register.R3 Register.R13
-  DEBUG    root:machine.py:897 TICK:    81 PC: 734 REG1:Register.R3  REG1_VAL:     111 REG2:Register.R13 REG2_VAL:    3004 OpCode.STORE OperandType.INDIRECT_LEFT Register.R3 Register.R13
-  DEBUG    root:machine.py:897 TICK:    82 PC: 734 REG1:Register.R3  REG1_VAL:     111 REG2:Register.R13 REG2_VAL:    3004 OpCode.STORE OperandType.INDIRECT_LEFT Register.R3 Register.R13
-  DEBUG    root:machine.py:897 TICK:    83 PC: 738 REG1:Register.R3  REG1_VAL:     111 REG2:Register.R13 REG2_VAL:    3004 OpCode.STORE OperandType.INDIRECT_LEFT Register.R3 Register.R13
-  DEBUG    root:machine.py:897 TICK:    84 PC: 738 REG1:Register.R3  REG1_VAL:     111 REG2:Register.R13 REG2_VAL:    3004 OpCode.STORE OperandType.INDIRECT_LEFT Register.R3 Register.R13
-  DEBUG    root:machine.py:897 TICK:    85 PC: 738 REG1:Register.R13 REG1_VAL:    3004 REG2:Register.R13 REG2_VAL:    3004 OpCode.ADD OperandType.IMMEDIATE Register.R13 Register.R13
-  DEBUG    root:machine.py:897 TICK:    86 PC: 740 REG1:Register.R13 REG1_VAL:    3004 REG2:Register.R13 REG2_VAL:    3004 OpCode.ADD OperandType.IMMEDIATE Register.R13 Register.R13
-  DEBUG    root:machine.py:897 TICK:    87 PC: 740 REG1:Register.R13 REG1_VAL:    3004 REG2:Register.R13 REG2_VAL:    3004 OpCode.ADD OperandType.IMMEDIATE Register.R13 Register.R13
-  DEBUG    root:machine.py:897 TICK:    88 PC: 744 REG1:Register.R13 REG1_VAL:    3004 REG2:Register.R13 REG2_VAL:    3004 OpCode.ADD OperandType.IMMEDIATE Register.R13 Register.R13
-  DEBUG    root:machine.py:897 TICK:    89 PC: 744 REG1:Register.R13 REG1_VAL:    3004 REG2:Register.R13 REG2_VAL:    3004 OpCode.ADD OperandType.IMMEDIATE Register.R13 Register.R13
-  DEBUG    root:machine.py:897 TICK:    90 PC: 744 REG1:Register.R13 REG1_VAL:    3008 REG2:Register.R13 REG2_VAL:    3008 OpCode.ADD OperandType.IMMEDIATE Register.R13 Register.R13
-  DEBUG    root:machine.py:897 TICK:    91 PC: 744 REG1:Register.R3  REG1_VAL:     111 REG2:Register.R3  REG2_VAL:     111 OpCode.CMP OperandType.IMMEDIATE Register.R3 Register.R3
-  DEBUG    root:machine.py:897 TICK:    92 PC: 746 REG1:Register.R3  REG1_VAL:     111 REG2:Register.R3  REG2_VAL:     111 OpCode.CMP OperandType.IMMEDIATE Register.R3 Register.R3
-  DEBUG    root:machine.py:897 TICK:    93 PC: 746 REG1:Register.R3  REG1_VAL:     111 REG2:Register.R3  REG2_VAL:     111 OpCode.CMP OperandType.IMMEDIATE Register.R3 Register.R3
-  DEBUG    root:machine.py:897 TICK:    94 PC: 750 REG1:Register.R3  REG1_VAL:     111 REG2:Register.R3  REG2_VAL:     111 OpCode.CMP OperandType.IMMEDIATE Register.R3 Register.R3
-  DEBUG    root:machine.py:897 TICK:    95 PC: 750 REG1:Register.R3  REG1_VAL:     111 REG2:Register.R3  REG2_VAL:     111 OpCode.CMP OperandType.IMMEDIATE Register.R3 Register.R3
-  DEBUG    root:machine.py:897 TICK:    96 PC: 750 REG1:Register.R3  REG1_VAL:     111 REG2:Register.R3  REG2_VAL:     111 OpCode.BE OperandType.IMMEDIATE Register.R3 Register.R3
-  DEBUG    root:machine.py:897 TICK:    97 PC: 752 REG1:Register.R3  REG1_VAL:     111 REG2:Register.R3  REG2_VAL:     111 OpCode.BE OperandType.IMMEDIATE Register.R3 Register.R3
-  DEBUG    root:machine.py:897 TICK:    98 PC: 752 REG1:Register.R3  REG1_VAL:     111 REG2:Register.R3  REG2_VAL:     111 OpCode.BE OperandType.IMMEDIATE Register.R3 Register.R3
-  DEBUG    root:machine.py:897 TICK:    99 PC: 756 REG1:Register.R3  REG1_VAL:     111 REG2:Register.R3  REG2_VAL:     111 OpCode.BE OperandType.IMMEDIATE Register.R3 Register.R3
-  DEBUG    root:machine.py:897 TICK:   100 PC: 756 REG1:Register.R3  REG1_VAL:     111 REG2:Register.R3  REG2_VAL:     111 OpCode.BE OperandType.IMMEDIATE Register.R3 Register.R3
-  INFO     root:machine.py:906 output_buffer: 'Hello, foo!'
-  EOF
+  DEBUG   machine:simulation    TICK:   0 PC:   0 REG1:      REG2:       R15_VAL:    0 R14_VAL:    0 AR:    0 DR:     0
+  DEBUG   machine:simulation    TICK:   1 PC:   0 REG1:      REG2:       R15_VAL:    0 R14_VAL:    0 AR:    0 DR:     0
+  DEBUG   machine:simulation    TICK:   2 PC:   0 REG1:      REG2:       R15_VAL:    0 R14_VAL:    0 AR:    0 DR:     0
+  DEBUG   machine:simulation    TICK:   3  PC:   0  REG1:R15    REG1_VAL:    0  REG2:R15    REG2_VAL:    0  R15_VAL:     0 R14_VAL:    0 AR:    0 DR:     0 MOV R15, VAL
+  DEBUG   machine:simulation    TICK:   4  PC:   2  REG1:R15    REG1_VAL:    0  REG2:R15    REG2_VAL:    0  R15_VAL:     0 R14_VAL:    0 AR:    0 DR:     0 MOV R15, VAL
+  DEBUG   machine:simulation    TICK:   5  PC:   2  REG1:R15    REG1_VAL:    0  REG2:R15    REG2_VAL:    0  R15_VAL:     0 R14_VAL:    0 AR:    2 DR:     0 MOV R15, VAL
+  DEBUG   machine:simulation    TICK:   6  PC:   2  REG1:R15    REG1_VAL:    0  REG2:R15    REG2_VAL:    0  R15_VAL:     0 R14_VAL:    0 AR:    2 DR:  9000 MOV R15, VAL
+  DEBUG   machine:simulation    TICK:   7  PC:   6  REG1:R15    REG1_VAL:    0  REG2:R15    REG2_VAL:    0  R15_VAL:     0 R14_VAL:    0 AR:    2 DR:  9000 MOV R15, VAL
+  DEBUG   machine:simulation    TICK:   8  PC:   6  REG1:R15    REG1_VAL: 9000  REG2:R15    REG2_VAL: 9000  R15_VAL:  9000 R14_VAL:    0 AR:    2 DR:  9000 MOV R15, VAL
+  DEBUG   machine:simulation    TICK:   9  PC:   6  REG1:R15    REG1_VAL: 9000  REG2:R15    REG2_VAL: 9000  R15_VAL:  9000 R14_VAL:    0 AR:    6 DR:  9000 MOV R15, VAL
+  DEBUG   machine:simulation    TICK:  10  PC:   6  REG1:R15    REG1_VAL: 9000  REG2:R15    REG2_VAL: 9000  R15_VAL:  9000 R14_VAL:    0 AR:    6 DR:     0 MOV R13, VAL
+  DEBUG   machine:simulation    TICK:  11  PC:   6  REG1:R13    REG1_VAL:    0  REG2:R13    REG2_VAL:    0  R15_VAL:  9000 R14_VAL:    0 AR:    6 DR:     0 MOV R13, VAL
+  DEBUG   machine:simulation    TICK:  12  PC:   8  REG1:R13    REG1_VAL:    0  REG2:R13    REG2_VAL:    0  R15_VAL:  9000 R14_VAL:    0 AR:    6 DR:     0 MOV R13, VAL
+  DEBUG   machine:simulation    TICK:  13  PC:   8  REG1:R13    REG1_VAL:    0  REG2:R13    REG2_VAL:    0  R15_VAL:  9000 R14_VAL:    0 AR:    8 DR:     0 MOV R13, VAL
+  DEBUG   machine:simulation    TICK:  14  PC:   8  REG1:R13    REG1_VAL:    0  REG2:R13    REG2_VAL:    0  R15_VAL:  9000 R14_VAL:    0 AR:    8 DR:  3000 MOV R13, VAL
+  DEBUG   machine:simulation    TICK:  15  PC:  12  REG1:R13    REG1_VAL:    0  REG2:R13    REG2_VAL:    0  R15_VAL:  9000 R14_VAL:    0 AR:    8 DR:  3000 MOV R13, VAL
+  DEBUG   machine:simulation    TICK:  16  PC:  12  REG1:R13    REG1_VAL: 3000  REG2:R13    REG2_VAL: 3000  R15_VAL:  9000 R14_VAL:    0 AR:    8 DR:  3000 MOV R13, VAL
+  DEBUG   machine:simulation    TICK:  17  PC:  12  REG1:R13    REG1_VAL: 3000  REG2:R13    REG2_VAL: 3000  R15_VAL:  9000 R14_VAL:    0 AR:   12 DR:  3000 MOV R13, VAL
+  DEBUG   machine:simulation    TICK:  18  PC:  12  REG1:R13    REG1_VAL: 3000  REG2:R13    REG2_VAL: 3000  R15_VAL:  9000 R14_VAL:    0 AR:   12 DR:     0 SUB R15, VAL
+  DEBUG   machine:simulation    TICK:  19  PC:  12  REG1:R15    REG1_VAL: 9000  REG2:R15    REG2_VAL: 9000  R15_VAL:  9000 R14_VAL:    0 AR:   12 DR:     0 SUB R15, VAL
+  DEBUG   machine:simulation    TICK:  20  PC:  14  REG1:R15    REG1_VAL: 9000  REG2:R15    REG2_VAL: 9000  R15_VAL:  9000 R14_VAL:    0 AR:   12 DR:     0 SUB R15, VAL
+  DEBUG   machine:simulation    TICK:  21  PC:  14  REG1:R15    REG1_VAL: 9000  REG2:R15    REG2_VAL: 9000  R15_VAL:  9000 R14_VAL:    0 AR:   14 DR:     0 SUB R15, VAL
+  DEBUG   machine:simulation    TICK:  22  PC:  14  REG1:R15    REG1_VAL: 9000  REG2:R15    REG2_VAL: 9000  R15_VAL:  9000 R14_VAL:    0 AR:   14 DR:     4 SUB R15, VAL
+  DEBUG   machine:simulation    TICK:  23  PC:  18  REG1:R15    REG1_VAL: 9000  REG2:R15    REG2_VAL: 9000  R15_VAL:  9000 R14_VAL:    0 AR:   14 DR:     4 SUB R15, VAL
+  DEBUG   machine:simulation    TICK:  24  PC:  18  REG1:R15    REG1_VAL: 9000  REG2:R15    REG2_VAL: 9000  R15_VAL:  9000 R14_VAL:    0 AR:   14 DR:     4 SUB R15, VAL
+  DEBUG   machine:simulation    TICK:  25  PC:  18  REG1:R15    REG1_VAL: 8996  REG2:R15    REG2_VAL: 8996  R15_VAL:  8996 R14_VAL:    0 AR:   14 DR:     4 SUB R15, VAL
+  DEBUG   machine:simulation    TICK:  26  PC:  18  REG1:R15    REG1_VAL: 8996  REG2:R15    REG2_VAL: 8996  R15_VAL:  8996 R14_VAL:    0 AR:   18 DR:     4 SUB R15, VAL
+  DEBUG   machine:simulation    TICK:  27  PC:  18  REG1:R15    REG1_VAL: 8996  REG2:R15    REG2_VAL: 8996  R15_VAL:  8996 R14_VAL:    0 AR:   18 DR:     0 SUB R15, VAL
+  DEBUG   machine:simulation    TICK:  28  PC:  18  REG1:R15    REG1_VAL: 8996  REG2:R15    REG2_VAL: 8996  R15_VAL:  8996 R14_VAL:    0 AR:   18 DR:     0 SUB R15, VAL
+  DEBUG   machine:simulation    TICK:  29  PC:  20  REG1:R15    REG1_VAL: 8996  REG2:R15    REG2_VAL: 8996  R15_VAL:  8996 R14_VAL:    0 AR:   18 DR:     0 SUB R15, VAL
+  DEBUG   machine:simulation    TICK:  30  PC:  20  REG1:R15    REG1_VAL: 8996  REG2:R15    REG2_VAL: 8996  R15_VAL:  8996 R14_VAL:    0 AR:   20 DR:     0 SUB R15, VAL
+  DEBUG   machine:simulation    TICK:  31  PC:  20  REG1:R15    REG1_VAL: 8996  REG2:R15    REG2_VAL: 8996  R15_VAL:  8996 R14_VAL:    0 AR:   20 DR:     4 SUB R15, VAL
+  DEBUG   machine:simulation    TICK:  32  PC:  24  REG1:R15    REG1_VAL: 8996  REG2:R15    REG2_VAL: 8996  R15_VAL:  8996 R14_VAL:    0 AR:   20 DR:     4 SUB R15, VAL
+  DEBUG   machine:simulation    TICK:  33  PC:  24  REG1:R15    REG1_VAL: 8996  REG2:R15    REG2_VAL: 8996  R15_VAL:  8996 R14_VAL:    0 AR:   20 DR:     4 SUB R15, VAL
+  DEBUG   machine:simulation    TICK:  34  PC:  24  REG1:R15    REG1_VAL: 8992  REG2:R15    REG2_VAL: 8992  R15_VAL:  8992 R14_VAL:    0 AR:   20 DR:     4 SUB R15, VAL
+  DEBUG   machine:simulation    TICK:  35  PC:  24  REG1:R15    REG1_VAL: 8992  REG2:R15    REG2_VAL: 8992  R15_VAL:  8992 R14_VAL:    0 AR:   24 DR:     4 SUB R15, VAL
+  DEBUG   machine:simulation    TICK:  36  PC:  24  REG1:R15    REG1_VAL: 8992  REG2:R15    REG2_VAL: 8992  R15_VAL:  8992 R14_VAL:    0 AR:   24 DR:     0 STORE R14, [R15 + 0]
+  DEBUG   machine:simulation    TICK:  37  PC:  24  REG1:R14    REG1_VAL:    0  REG2:R15    REG2_VAL: 8992  R15_VAL:  8992 R14_VAL:    0 AR:   24 DR:     0 STORE R14, [R15 + 0]
+  DEBUG   machine:simulation    TICK:  38  PC:  28  REG1:R14    REG1_VAL:    0  REG2:R15    REG2_VAL: 8992  R15_VAL:  8992 R14_VAL:    0 AR:   24 DR:     0 STORE R14, [R15 + 0]
+  DEBUG   machine:simulation    TICK:  39  PC:  28  REG1:R14    REG1_VAL:    0  REG2:R15    REG2_VAL: 8992  R15_VAL:  8992 R14_VAL:    0 AR: 8992 DR:     0 STORE R14, [R15 + 0]
+  DEBUG   machine:simulation    TICK:  40  PC:  28  REG1:R14    REG1_VAL:    0  REG2:R15    REG2_VAL: 8992  R15_VAL:  8992 R14_VAL:    0 AR: 8992 DR:     0 STORE R14, [R15 + 0]
+  DEBUG   machine:simulation    TICK:  41  PC:  28  REG1:R14    REG1_VAL:    0  REG2:R15    REG2_VAL: 8992  R15_VAL:  8992 R14_VAL:    0 AR:   28 DR:     0 STORE R14, [R15 + 0]
+  DEBUG   machine:simulation    TICK:  42  PC:  28  REG1:R14    REG1_VAL:    0  REG2:R15    REG2_VAL: 8992  R15_VAL:  8992 R14_VAL:    0 AR:   28 DR:     0 MOV R2, VAL
+  DEBUG   machine:simulation    TICK:  43  PC:  28  REG1:R2     REG1_VAL:    0  REG2:R2     REG2_VAL:    0  R15_VAL:  8992 R14_VAL:    0 AR:   28 DR:     0 MOV R2, VAL
+  DEBUG   machine:simulation    TICK:  44  PC:  30  REG1:R2     REG1_VAL:    0  REG2:R2     REG2_VAL:    0  R15_VAL:  8992 R14_VAL:    0 AR:   28 DR:     0 MOV R2, VAL
+  DEBUG   machine:simulation    TICK:  45  PC:  30  REG1:R2     REG1_VAL:    0  REG2:R2     REG2_VAL:    0  R15_VAL:  8992 R14_VAL:    0 AR:   30 DR:     0 MOV R2, VAL
+  DEBUG   machine:simulation    TICK:  46  PC:  30  REG1:R2     REG1_VAL:    0  REG2:R2     REG2_VAL:    0  R15_VAL:  8992 R14_VAL:    0 AR:   30 DR:     0 MOV R2, VAL
+  DEBUG   machine:simulation    TICK:  47  PC:  34  REG1:R2     REG1_VAL:    0  REG2:R2     REG2_VAL:    0  R15_VAL:  8992 R14_VAL:    0 AR:   30 DR:     0 MOV R2, VAL
+  DEBUG   machine:simulation    TICK:  48  PC:  34  REG1:R2     REG1_VAL:    0  REG2:R2     REG2_VAL:    0  R15_VAL:  8992 R14_VAL:    0 AR:   30 DR:     0 MOV R2, VAL
+  DEBUG   machine:simulation    TICK:  49  PC:  34  REG1:R2     REG1_VAL:    0  REG2:R2     REG2_VAL:    0  R15_VAL:  8992 R14_VAL:    0 AR:   34 DR:     0 MOV R2, VAL
+  DEBUG   machine:simulation    TICK:  50  PC:  34  REG1:R2     REG1_VAL:    0  REG2:R2     REG2_VAL:    0  R15_VAL:  8992 R14_VAL:    0 AR:   34 DR:     0 CALL R14, VAL
+  DEBUG   machine:simulation    TICK:  51  PC:  34  REG1:R14    REG1_VAL:    0  REG2:R14    REG2_VAL:    0  R15_VAL:  8992 R14_VAL:    0 AR:   34 DR:     0 CALL R14, VAL
+  DEBUG   machine:simulation    TICK:  52  PC:  36  REG1:R14    REG1_VAL:    0  REG2:R14    REG2_VAL:    0  R15_VAL:  8992 R14_VAL:    0 AR:   34 DR:     0 CALL R14, VAL
+  DEBUG   machine:simulation    TICK:  53  PC:  36  REG1:R14    REG1_VAL:    0  REG2:R14    REG2_VAL:    0  R15_VAL:  8992 R14_VAL:    0 AR:   36 DR:     0 CALL R14, VAL
+  DEBUG   machine:simulation    TICK:  54  PC:  36  REG1:R14    REG1_VAL:    0  REG2:R14    REG2_VAL:    0  R15_VAL:  8992 R14_VAL:    0 AR:   36 DR:   610 CALL R14, VAL
+  DEBUG   machine:simulation    TICK:  55  PC:  40  REG1:R14    REG1_VAL:    0  REG2:R14    REG2_VAL:    0  R15_VAL:  8992 R14_VAL:    0 AR:   36 DR:   610 CALL R14, VAL
+  DEBUG   machine:simulation    TICK:  56  PC: 610  REG1:R14    REG1_VAL:   40  REG2:R14    REG2_VAL:   40  R15_VAL:  8992 R14_VAL:   40 AR:   36 DR:   610 CALL R14, VAL
+  DEBUG   machine:simulation    TICK:  57  PC: 610  REG1:R14    REG1_VAL:   40  REG2:R14    REG2_VAL:   40  R15_VAL:  8992 R14_VAL:   40 AR:  610 DR:   610 CALL R14, VAL
+  DEBUG   machine:simulation    TICK:  58  PC: 610  REG1:R14    REG1_VAL:   40  REG2:R14    REG2_VAL:   40  R15_VAL:  8992 R14_VAL:   40 AR:  610 DR: 12066 MOV R0, R13
+  DEBUG   machine:simulation    TICK:  59  PC: 610  REG1:R0     REG1_VAL:    0  REG2:R13    REG2_VAL: 3000  R15_VAL:  8992 R14_VAL:   40 AR:  610 DR: 12066 MOV R0, R13
+  DEBUG   machine:simulation    TICK:  60  PC: 612  REG1:R0     REG1_VAL:    0  REG2:R13    REG2_VAL: 3000  R15_VAL:  8992 R14_VAL:   40 AR:  610 DR: 12066 MOV R0, R13
+  DEBUG   machine:simulation    TICK:  61  PC: 612  REG1:R0     REG1_VAL: 3000  REG2:R13    REG2_VAL: 3000  R15_VAL:  8992 R14_VAL:   40 AR:  610 DR: 12066 MOV R0, R13
+  DEBUG   machine:simulation    TICK:  62  PC: 612  REG1:R0     REG1_VAL: 3000  REG2:R13    REG2_VAL: 3000  R15_VAL:  8992 R14_VAL:   40 AR:  612 DR: 12066 MOV R0, R13
+  DEBUG   machine:simulation    TICK:  63  PC: 612  REG1:R0     REG1_VAL: 3000  REG2:R13    REG2_VAL: 3000  R15_VAL:  8992 R14_VAL:   40 AR:  612 DR:     0 MOV R2, VAL
+  DEBUG   machine:simulation    TICK:  64  PC: 612  REG1:R2     REG1_VAL:    0  REG2:R2     REG2_VAL:    0  R15_VAL:  8992 R14_VAL:   40 AR:  612 DR:     0 MOV R2, VAL
+  DEBUG   machine:simulation    TICK:  65  PC: 614  REG1:R2     REG1_VAL:    0  REG2:R2     REG2_VAL:    0  R15_VAL:  8992 R14_VAL:   40 AR:  612 DR:     0 MOV R2, VAL
+  DEBUG   machine:simulation    TICK:  66  PC: 614  REG1:R2     REG1_VAL:    0  REG2:R2     REG2_VAL:    0  R15_VAL:  8992 R14_VAL:   40 AR:  614 DR:     0 MOV R2, VAL
+  DEBUG   machine:simulation    TICK:  67  PC: 614  REG1:R2     REG1_VAL:    0  REG2:R2     REG2_VAL:    0  R15_VAL:  8992 R14_VAL:   40 AR:  614 DR: 39318 MOV R2, VAL
+  DEBUG   machine:simulation    TICK:  68  PC: 618  REG1:R2     REG1_VAL:    0  REG2:R2     REG2_VAL:    0  R15_VAL:  8992 R14_VAL:   40 AR:  614 DR: 39318 MOV R2, VAL
+  DEBUG   machine:simulation    TICK:  69  PC: 618  REG1:R2     REG1_VAL:39318  REG2:R2     REG2_VAL:39318  R15_VAL:  8992 R14_VAL:   40 AR:  614 DR: 39318 MOV R2, VAL
+  DEBUG   machine:simulation    TICK:  70  PC: 618  REG1:R2     REG1_VAL:39318  REG2:R2     REG2_VAL:39318  R15_VAL:  8992 R14_VAL:   40 AR:  618 DR: 39318 MOV R2, VAL
+  DEBUG   machine:simulation    TICK:  71  PC: 618  REG1:R2     REG1_VAL:39318  REG2:R2     REG2_VAL:39318  R15_VAL:  8992 R14_VAL:   40 AR:  618 DR:     0 MOV R3, [R2 + 0]
+  DEBUG   machine:simulation    TICK:  72  PC: 618  REG1:R3     REG1_VAL:    0  REG2:R2     REG2_VAL:39318  R15_VAL:  8992 R14_VAL:   40 AR:  618 DR:     0 MOV R3, [R2 + 0]
+  DEBUG   machine:simulation    TICK:  73  PC: 618  REG1:R3     REG1_VAL:    0  REG2:R2     REG2_VAL:39318  R15_VAL:  8992 R14_VAL:   40 AR:  618 DR:     0 MOV R3, [R2 + 0]
+  DEBUG   machine:simulation    TICK:  74  PC: 618  REG1:R3     REG1_VAL:    0  REG2:R2     REG2_VAL:39318  R15_VAL:  8992 R14_VAL:   40 AR:39318 DR:     0 MOV R3, [R2 + 0]
+  DEBUG   machine:simulation    TICK:  75  PC: 618  REG1:R3     REG1_VAL:    0  REG2:R2     REG2_VAL:39318  R15_VAL:  8992 R14_VAL:   40 AR:39318 DR:   102 MOV R3, [R2 + 102]
+  DEBUG   machine:simulation    TICK:  76  PC: 622  REG1:R3     REG1_VAL:    0  REG2:R2     REG2_VAL:39318  R15_VAL:  8992 R14_VAL:   40 AR:39318 DR:   102 MOV R3, [R2 + 102]
+  DEBUG   machine:simulation    TICK:  77  PC: 622  REG1:R3     REG1_VAL:  102  REG2:R2     REG2_VAL:39318  R15_VAL:  8992 R14_VAL:   40 AR:39318 DR:   102 MOV R3, [R2 + 102]
+  DEBUG   machine:simulation    TICK:  78  PC: 622  REG1:R3     REG1_VAL:  102  REG2:R2     REG2_VAL:39318  R15_VAL:  8992 R14_VAL:   40 AR:  622 DR:   102 MOV R3, [R2 + 102]
+  DEBUG   machine:simulation    TICK:  79  PC: 622  REG1:R3     REG1_VAL:  102  REG2:R2     REG2_VAL:39318  R15_VAL:  8992 R14_VAL:   40 AR:  622 DR:     0 STORE R3, [R13 + 0]
+  DEBUG   machine:simulation    TICK:  80  PC: 622  REG1:R3     REG1_VAL:  102  REG2:R13    REG2_VAL: 3000  R15_VAL:  8992 R14_VAL:   40 AR:  622 DR:     0 STORE R3, [R13 + 0]
+  DEBUG   machine:simulation    TICK:  81  PC: 626  REG1:R3     REG1_VAL:  102  REG2:R13    REG2_VAL: 3000  R15_VAL:  8992 R14_VAL:   40 AR:  622 DR:     0 STORE R3, [R13 + 0]
+  DEBUG   machine:simulation    TICK:  82  PC: 626  REG1:R3     REG1_VAL:  102  REG2:R13    REG2_VAL: 3000  R15_VAL:  8992 R14_VAL:   40 AR: 3000 DR:     0 STORE R3, [R13 + 0]
+  DEBUG   machine:simulation    TICK:  83  PC: 626  REG1:R3     REG1_VAL:  102  REG2:R13    REG2_VAL: 3000  R15_VAL:  8992 R14_VAL:   40 AR: 3000 DR:     0 STORE R3, [R13 + 0]
+  DEBUG   machine:simulation    TICK:  84  PC: 626  REG1:R3     REG1_VAL:  102  REG2:R13    REG2_VAL: 3000  R15_VAL:  8992 R14_VAL:   40 AR:  626 DR:     0 STORE R3, [R13 + 0]
+  DEBUG   machine:simulation    TICK:  85  PC: 626  REG1:R3     REG1_VAL:  102  REG2:R13    REG2_VAL: 3000  R15_VAL:  8992 R14_VAL:   40 AR:  626 DR:     0 ADD R13, VAL
+  DEBUG   machine:simulation    TICK:  86  PC: 626  REG1:R13    REG1_VAL: 3000  REG2:R13    REG2_VAL: 3000  R15_VAL:  8992 R14_VAL:   40 AR:  626 DR:     0 ADD R13, VAL
+  DEBUG   machine:simulation    TICK:  87  PC: 628  REG1:R13    REG1_VAL: 3000  REG2:R13    REG2_VAL: 3000  R15_VAL:  8992 R14_VAL:   40 AR:  626 DR:     0 ADD R13, VAL
+  DEBUG   machine:simulation    TICK:  88  PC: 628  REG1:R13    REG1_VAL: 3000  REG2:R13    REG2_VAL: 3000  R15_VAL:  8992 R14_VAL:   40 AR:  628 DR:     0 ADD R13, VAL
+  DEBUG   machine:simulation    TICK:  89  PC: 628  REG1:R13    REG1_VAL: 3000  REG2:R13    REG2_VAL: 3000  R15_VAL:  8992 R14_VAL:   40 AR:  628 DR:     4 ADD R13, VAL
+  DEBUG   machine:simulation    TICK:  90  PC: 632  REG1:R13    REG1_VAL: 3000  REG2:R13    REG2_VAL: 3000  R15_VAL:  8992 R14_VAL:   40 AR:  628 DR:     4 ADD R13, VAL
+  DEBUG   machine:simulation    TICK:  91  PC: 632  REG1:R13    REG1_VAL: 3000  REG2:R13    REG2_VAL: 3000  R15_VAL:  8992 R14_VAL:   40 AR:  628 DR:     4 ADD R13, VAL
+  DEBUG   machine:simulation    TICK:  92  PC: 632  REG1:R13    REG1_VAL: 3004  REG2:R13    REG2_VAL: 3004  R15_VAL:  8992 R14_VAL:   40 AR:  628 DR:     4 ADD R13, VAL
+  DEBUG   machine:simulation    TICK:  93  PC: 632  REG1:R13    REG1_VAL: 3004  REG2:R13    REG2_VAL: 3004  R15_VAL:  8992 R14_VAL:   40 AR:  632 DR:     4 ADD R13, VAL
+  DEBUG   machine:simulation    TICK:  94  PC: 632  REG1:R13    REG1_VAL: 3004  REG2:R13    REG2_VAL: 3004  R15_VAL:  8992 R14_VAL:   40 AR:  632 DR:     0 CMP R3, VAL
+  DEBUG   machine:simulation    TICK:  95  PC: 632  REG1:R3     REG1_VAL:  102  REG2:R3     REG2_VAL:  102  R15_VAL:  8992 R14_VAL:   40 AR:  632 DR:     0 CMP R3, VAL
+  DEBUG   machine:simulation    TICK:  96  PC: 634  REG1:R3     REG1_VAL:  102  REG2:R3     REG2_VAL:  102  R15_VAL:  8992 R14_VAL:   40 AR:  632 DR:     0 CMP R3, VAL
+  DEBUG   machine:simulation    TICK:  97  PC: 634  REG1:R3     REG1_VAL:  102  REG2:R3     REG2_VAL:  102  R15_VAL:  8992 R14_VAL:   40 AR:  634 DR:     0 CMP R3, VAL
+  DEBUG   machine:simulation    TICK:  98  PC: 634  REG1:R3     REG1_VAL:  102  REG2:R3     REG2_VAL:  102  R15_VAL:  8992 R14_VAL:   40 AR:  634 DR:     0 CMP R3, VAL
+  DEBUG   machine:simulation    TICK:  99  PC: 638  REG1:R3     REG1_VAL:  102  REG2:R3     REG2_VAL:  102  R15_VAL:  8992 R14_VAL:   40 AR:  634 DR:     0 CMP R3, VAL
+  DEBUG   machine:simulation    TICK: 100  PC: 638  REG1:R3     REG1_VAL:  102  REG2:R3     REG2_VAL:  102  R15_VAL:  8992 R14_VAL:   40 AR:  634 DR:     0 CMP R3, VAL
+  INFO    machine:simulation    output_buffer: '[72, 101, 108, 108, 111, 44, 32, 102, 111, 111, 33]'

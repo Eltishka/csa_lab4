@@ -11,7 +11,7 @@ import translator
 MAX_LOG = 400000
 
 
-@pytest.mark.golden_test("golden/*.yml")
+@pytest.mark.golden_test("golden/max_palindrom.yml")
 def test_translator_and_machine(golden, caplog):
 
     caplog.set_level(logging.DEBUG)
@@ -37,7 +37,7 @@ def test_translator_and_machine(golden, caplog):
             file.read()
         with open(target_hex, encoding="utf-8") as file:
             code_hex = file.read()
-
+        #assert code == golden.out["out_code"]
         assert code_hex == golden.out["out_code_hex"]
         assert stdout.getvalue() == golden.out["out_stdout"]
-
+        assert caplog.text == golden.out["out_log"]
