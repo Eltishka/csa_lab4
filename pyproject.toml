@@ -1,0 +1,36 @@
+[build-system]
+requires = ["setuptools >= 77.0.3"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "csa-lab4"
+version = "0.1"
+requires-python = ">=3.10"
+dependencies = ["pytest", "ruff", "mypy"]
+
+[tool.ruff]
+ignore = [
+    "RUF003",
+    "T201",
+    "ERA001",
+    "FIX002",
+    "TD", # TODO
+    "D", # docstrings
+    "ANN204", # type annotation for special method
+    "EM", # error messages
+    "TC003", # always type annotation
+    "S101", # assert on
+    "S105", # token isn't password
+    "INP001", # init file
+    "C901", # complex
+    "PLR0912", # many branches
+    "ANN001",
+    "ARG002"
+    ]
+select = ["ALL"]
+target-version = "py310"
+
+[tool.mypy]
+python_version = "3.10"
+strict = true
+explicit_package_bases = true
