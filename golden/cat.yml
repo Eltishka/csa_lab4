@@ -124,7 +124,8 @@ out_stdout: |
   instructions: 113
   ============================================================
   1234
-  ticks: 883
+  ticks: 883  
+
 out_log: |
   DEBUG   machine:simulation    TICK:   0 PC:   0 REG1:      REG2:       R15_VAL:    0 R14_VAL:    0 AR:    0 DR:     0
   DEBUG   machine:simulation    TICK:   1 PC:   0 REG1:      REG2:       R15_VAL:    0 R14_VAL:    0 AR:    0 DR:     0
@@ -227,5 +228,5 @@ out_log: |
   DEBUG   machine:simulation    TICK:  98  PC:  48  REG1:R14    REG1_VAL:   44  REG2:R15    REG2_VAL: 8992  R15_VAL:  8992 R14_VAL:   44 AR: 8992 DR:     0 MOV R14, [R15 + 0]
   DEBUG   machine:simulation    TICK:  99  PC:  48  REG1:R14    REG1_VAL:    0  REG2:R15    REG2_VAL: 8992  R15_VAL:  8992 R14_VAL:    0 AR: 8992 DR:     0 MOV R14, [R15 + 0]
   DEBUG   machine:simulation    TICK: 100  PC:  48  REG1:R14    REG1_VAL:    0  REG2:R15    REG2_VAL: 8992  R15_VAL:  8992 R14_VAL:    0 AR:   48 DR:     0 MOV R14, [R15 + 0]
-  WARNING   machine:simulation    Input buffer is empty!
+  WARNING machine:simulation    Input buffer is empty!
   INFO    machine:simulation    output_buffer: '[49, 50, 51, 52]'

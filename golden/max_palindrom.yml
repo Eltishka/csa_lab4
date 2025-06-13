@@ -1,13 +1,13 @@
 in_source: |-
   (defun is-palindrom (num)
     (let ((reversed-num 0)
-         (original num))
-        (loop while (!= num 0)
-              do
-              (setq reversed-num (+ (* reversed-num 10) (mod num 10)))
-                  (setq num  (/ num 10)))
-
-         (= reversed-num original)))      
+          (original num))
+      (loop while (!= num 0)
+            do
+            (setq reversed-num (+ (* reversed-num 10) (mod num 10)))
+            (setq num (/ num 10)))
+      (= reversed-num original)))
+  
   (let ((max-palindrom 0)
         (x 1000)
         (y 1000)
@@ -17,12 +17,12 @@ in_source: |-
              (loop while (and (!= y 10) (not is-pal))
                    do (if (is-palindrom (* x y))
                           ((setq max-palindrom (* x y))
-                          (setq is-pal 1)))
+                           (setq is-pal 1)))
                       (setq y (- y 1)))
-              (setq x (- x 1)))
+          (setq x (- x 1)))
     (print max-palindrom))
 in_stdin: |-
-  foo
+  1
 null_terminated_in: 0
 char_io: 0
 out_code_hex: |-

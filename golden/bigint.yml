@@ -1,0 +1,429 @@
+in_source: |-
+  (let ((first_high (read))
+        (first_low (read))
+        (second_high (read))
+        (second_low (read))
+        (res_low 0)
+        (res_high 0)
+        (c 0))
+  
+    (setq res_low (+ first_low second_low))
+    (setq c (or (and (>= (+ first_low second_low) 0)
+                 (!= (> first_low 0) (> second_low 0))
+                 (!= first_low 0))
+              (and (< first_low 0)
+                   (< second_low 0))))
+  
+    (setq res_high (+ first_high second_high c))
+  
+    (print res_high)
+    (print res_low))
+in_stdin: |-
+  1122
+null_terminated_in: 0
+char_io: 0
+out_code_hex: |-
+  0     - 2FFF00002328 - MOV R15, 9000
+  6     - 2FDD00000BB8 - MOV R13, 3000
+  12    - 0BFF0000001C - SUB R15, 28
+  18    - 0BFF00000004 - SUB R15, 4
+  24    - C1EF0000     - STORE R14, [R15 + 0]
+  28    - 2F2200000000 - MOV R2, 0
+  34    - 33EE000004E8 - CALL R14, 1256
+  40    - 2DEF0000     - MOV R14, [R15 + 0]
+  44    - 07FF00000004 - ADD R15, 4
+  50    - C10F0000     - STORE R0, [R15 + 0]
+  54    - 0BFF00000004 - SUB R15, 4
+  60    - C1EF0000     - STORE R14, [R15 + 0]
+  64    - 2F2200000000 - MOV R2, 0
+  70    - 33EE000004E8 - CALL R14, 1256
+  76    - 2DEF0000     - MOV R14, [R15 + 0]
+  80    - 07FF00000004 - ADD R15, 4
+  86    - C10F0004     - STORE R0, [R15 + 4]
+  90    - 0BFF00000004 - SUB R15, 4
+  96    - C1EF0000     - STORE R14, [R15 + 0]
+  100   - 2F2200000000 - MOV R2, 0
+  106   - 33EE000004E8 - CALL R14, 1256
+  112   - 2DEF0000     - MOV R14, [R15 + 0]
+  116   - 07FF00000004 - ADD R15, 4
+  122   - C10F0008     - STORE R0, [R15 + 8]
+  126   - 0BFF00000004 - SUB R15, 4
+  132   - C1EF0000     - STORE R14, [R15 + 0]
+  136   - 2F2200000000 - MOV R2, 0
+  142   - 33EE000004E8 - CALL R14, 1256
+  148   - 2DEF0000     - MOV R14, [R15 + 0]
+  152   - 07FF00000004 - ADD R15, 4
+  158   - C10F000C     - STORE R0, [R15 + 12]
+  162   - 2F0000000000 - MOV R0, 0
+  168   - 2F1100000000 - MOV R1, 0
+  174   - C10F0010     - STORE R0, [R15 + 16]
+  178   - 2F0000000000 - MOV R0, 0
+  184   - 2F1100000000 - MOV R1, 0
+  190   - C10F0014     - STORE R0, [R15 + 20]
+  194   - 2F0000000000 - MOV R0, 0
+  200   - 2F1100000000 - MOV R1, 0
+  206   - C10F0018     - STORE R0, [R15 + 24]
+  210   - 0BFF00000004 - SUB R15, 4
+  216   - C17F0000     - STORE R7, [R15 + 0]
+  220   - 2D3F0008     - MOV R3, [R15 + 8]
+  224   - 2C73         - MOV R7, R3
+  226   - 2D2F0010     - MOV R2, [R15 + 16]
+  230   - 0472         - ADD R7, R2
+  232   - 2C07         - MOV R0, R7
+  234   - 2D7F0000     - MOV R7, [R15 + 0]
+  238   - 07FF00000004 - ADD R15, 4
+  244   - C10F0010     - STORE R0, [R15 + 16]
+  248   - 0BFF00000004 - SUB R15, 4
+  254   - C17F0000     - STORE R7, [R15 + 0]
+  258   - 0BFF00000004 - SUB R15, 4
+  264   - C17F0000     - STORE R7, [R15 + 0]
+  268   - 0BFF00000004 - SUB R15, 4
+  274   - C17F0000     - STORE R7, [R15 + 0]
+  278   - 0BFF00000004 - SUB R15, 4
+  284   - C17F0000     - STORE R7, [R15 + 0]
+  288   - 2D3F0014     - MOV R3, [R15 + 20]
+  292   - 2C73         - MOV R7, R3
+  294   - 2D2F001C     - MOV R2, [R15 + 28]
+  298   - 0472         - ADD R7, R2
+  300   - 2C27         - MOV R2, R7
+  302   - 2D7F0000     - MOV R7, [R15 + 0]
+  306   - 07FF00000004 - ADD R15, 4
+  312   - 2C72         - MOV R7, R2
+  314   - 2F2200000000 - MOV R2, 0
+  320   - 2F1100000000 - MOV R1, 0
+  326   - 2872         - CMP R7, R2
+  328   - 4A77000E     - BL PC + 14
+  332   - 2F3300000001 - MOV R3, 1
+  338   - 5633000A     - JMP PC + 10
+  342   - 2F3300000000 - MOV R3, 0
+  348   - 2D7F0000     - MOV R7, [R15 + 0]
+  352   - 07FF00000004 - ADD R15, 4
+  358   - 2C73         - MOV R7, R3
+  360   - 0BFF00000004 - SUB R15, 4
+  366   - C17F0000     - STORE R7, [R15 + 0]
+  370   - 0BFF00000004 - SUB R15, 4
+  376   - C17F0000     - STORE R7, [R15 + 0]
+  380   - 2D2F0014     - MOV R2, [R15 + 20]
+  384   - 2C72         - MOV R7, R2
+  386   - 2F2200000000 - MOV R2, 0
+  392   - 2F1100000000 - MOV R1, 0
+  398   - 2872         - CMP R7, R2
+  400   - 4E77000E     - BLE PC + 14
+  404   - 2F2200000001 - MOV R2, 1
+  410   - 5622000A     - JMP PC + 10
+  414   - 2F2200000000 - MOV R2, 0
+  420   - 2D7F0000     - MOV R7, [R15 + 0]
+  424   - 07FF00000004 - ADD R15, 4
+  430   - 2C72         - MOV R7, R2
+  432   - 0BFF00000004 - SUB R15, 4
+  438   - C17F0000     - STORE R7, [R15 + 0]
+  442   - 2D2F001C     - MOV R2, [R15 + 28]
+  446   - 2C72         - MOV R7, R2
+  448   - 2F2200000000 - MOV R2, 0
+  454   - 2F1100000000 - MOV R1, 0
+  460   - 2872         - CMP R7, R2
+  462   - 4E77000E     - BLE PC + 14
+  466   - 2F2200000001 - MOV R2, 1
+  472   - 5622000A     - JMP PC + 10
+  476   - 2F2200000000 - MOV R2, 0
+  482   - 2D7F0000     - MOV R7, [R15 + 0]
+  486   - 07FF00000004 - ADD R15, 4
+  492   - 2872         - CMP R7, R2
+  494   - 3A77000E     - BE PC + 14
+  498   - 2F2200000001 - MOV R2, 1
+  504   - 5622000A     - JMP PC + 10
+  508   - 2F2200000000 - MOV R2, 0
+  514   - 2D7F0000     - MOV R7, [R15 + 0]
+  518   - 07FF00000004 - ADD R15, 4
+  524   - 1872         - AND R7, R2
+  526   - 0BFF00000004 - SUB R15, 4
+  532   - C17F0000     - STORE R7, [R15 + 0]
+  536   - 2D2F0010     - MOV R2, [R15 + 16]
+  540   - 2C72         - MOV R7, R2
+  542   - 2F2200000000 - MOV R2, 0
+  548   - 2F1100000000 - MOV R1, 0
+  554   - 2872         - CMP R7, R2
+  556   - 3A77000E     - BE PC + 14
+  560   - 2F2200000001 - MOV R2, 1
+  566   - 5622000A     - JMP PC + 10
+  570   - 2F2200000000 - MOV R2, 0
+  576   - 2D7F0000     - MOV R7, [R15 + 0]
+  580   - 07FF00000004 - ADD R15, 4
+  586   - 1872         - AND R7, R2
+  588   - 2C37         - MOV R3, R7
+  590   - 2D7F0000     - MOV R7, [R15 + 0]
+  594   - 07FF00000004 - ADD R15, 4
+  600   - 2C73         - MOV R7, R3
+  602   - 0BFF00000004 - SUB R15, 4
+  608   - C17F0000     - STORE R7, [R15 + 0]
+  612   - 0BFF00000004 - SUB R15, 4
+  618   - C17F0000     - STORE R7, [R15 + 0]
+  622   - 2D2F0010     - MOV R2, [R15 + 16]
+  626   - 2C72         - MOV R7, R2
+  628   - 2F2200000000 - MOV R2, 0
+  634   - 2F1100000000 - MOV R1, 0
+  640   - 2872         - CMP R7, R2
+  642   - 4677000E     - BGE PC + 14
+  646   - 2F3300000001 - MOV R3, 1
+  652   - 5633000A     - JMP PC + 10
+  656   - 2F3300000000 - MOV R3, 0
+  662   - 2D7F0000     - MOV R7, [R15 + 0]
+  666   - 07FF00000004 - ADD R15, 4
+  672   - 2C73         - MOV R7, R3
+  674   - 0BFF00000004 - SUB R15, 4
+  680   - C17F0000     - STORE R7, [R15 + 0]
+  684   - 2D2F0018     - MOV R2, [R15 + 24]
+  688   - 2C72         - MOV R7, R2
+  690   - 2F2200000000 - MOV R2, 0
+  696   - 2F1100000000 - MOV R1, 0
+  702   - 2872         - CMP R7, R2
+  704   - 4677000E     - BGE PC + 14
+  708   - 2F2200000001 - MOV R2, 1
+  714   - 5622000A     - JMP PC + 10
+  718   - 2F2200000000 - MOV R2, 0
+  724   - 2D7F0000     - MOV R7, [R15 + 0]
+  728   - 07FF00000004 - ADD R15, 4
+  734   - 1872         - AND R7, R2
+  736   - 2C27         - MOV R2, R7
+  738   - 2D7F0000     - MOV R7, [R15 + 0]
+  742   - 07FF00000004 - ADD R15, 4
+  748   - 1C72         - OR R7, R2
+  750   - 2C07         - MOV R0, R7
+  752   - 2D7F0000     - MOV R7, [R15 + 0]
+  756   - 07FF00000004 - ADD R15, 4
+  762   - C10F0018     - STORE R0, [R15 + 24]
+  766   - 0BFF00000004 - SUB R15, 4
+  772   - C17F0000     - STORE R7, [R15 + 0]
+  776   - 2D3F0004     - MOV R3, [R15 + 4]
+  780   - 2C73         - MOV R7, R3
+  782   - 2D2F000C     - MOV R2, [R15 + 12]
+  786   - 0472         - ADD R7, R2
+  788   - 2D2F001C     - MOV R2, [R15 + 28]
+  792   - 0472         - ADD R7, R2
+  794   - 2C07         - MOV R0, R7
+  796   - 2D7F0000     - MOV R7, [R15 + 0]
+  800   - 07FF00000004 - ADD R15, 4
+  806   - C10F0014     - STORE R0, [R15 + 20]
+  810   - 0BFF00000004 - SUB R15, 4
+  816   - C1EF0000     - STORE R14, [R15 + 0]
+  820   - 2D3F0018     - MOV R3, [R15 + 24]
+  824   - 0BFF00000004 - SUB R15, 4
+  830   - C13F0000     - STORE R3, [R15 + 0]
+  834   - 2F2200000001 - MOV R2, 1
+  840   - 33EE0000039A - CALL R14, 922
+  846   - 07FF00000004 - ADD R15, 4
+  852   - 2DEF0000     - MOV R14, [R15 + 0]
+  856   - 07FF00000004 - ADD R15, 4
+  862   - 0BFF00000004 - SUB R15, 4
+  868   - C1EF0000     - STORE R14, [R15 + 0]
+  872   - 2D3F0014     - MOV R3, [R15 + 20]
+  876   - 0BFF00000004 - SUB R15, 4
+  882   - C13F0000     - STORE R3, [R15 + 0]
+  886   - 2F2200000001 - MOV R2, 1
+  892   - 33EE0000039A - CALL R14, 922
+  898   - 07FF00000004 - ADD R15, 4
+  904   - 2DEF0000     - MOV R14, [R15 + 0]
+  908   - 07FF00000004 - ADD R15, 4
+  914   - 07FF0000001C - ADD R15, 28
+  920   - 0000         - HALT R0, R0
+  922   - 2D3F0000     - MOV R3, [R15 + 0]
+  926   - 2B1100000000 - CMP R1, 0
+  932   - 3E33000E     - BNE PC + 14
+  936   - 5B3300010000 - STORE_IMM R3, 65536
+  942   - 56330022     - JMP PC + 34
+  946   - 2D230000     - MOV R2, [R3 + 0]
+  950   - 2B2200000000 - CMP R2, 0
+  956   - 3A330014     - BE PC + 20
+  960   - 5B2200010000 - STORE_IMM R2, 65536
+  966   - 073300000004 - ADD R3, 4
+  972   - 5633FFE6     - JMP PC + -26
+  976   - 34EE         - RET R14, R14
+  978   - 2C0D         - MOV R0, R13
+  980   - 2D3F0000     - MOV R3, [R15 + 0]
+  984   - 2D230000     - MOV R2, [R3 + 0]
+  988   - 2B2200000000 - CMP R2, 0
+  994   - 3A330018     - BE PC + 24
+  998   - C12D0000     - STORE R2, [R13 + 0]
+  1002  - 073300000004 - ADD R3, 4
+  1008  - 07DD00000004 - ADD R13, 4
+  1014  - 5633FFE2     - JMP PC + -30
+  1018  - 2D3F0004     - MOV R3, [R15 + 4]
+  1022  - 2D230000     - MOV R2, [R3 + 0]
+  1026  - 2B2200000000 - CMP R2, 0
+  1032  - 3A330018     - BE PC + 24
+  1036  - C12D0000     - STORE R2, [R13 + 0]
+  1040  - 073300000004 - ADD R3, 4
+  1046  - 07DD00000004 - ADD R13, 4
+  1052  - 5633FFE2     - JMP PC + -30
+  1056  - C12D0000     - STORE R2, [R13 + 0]
+  1060  - 07DD00000004 - ADD R13, 4
+  1066  - 34EE         - RET R14, R14
+  1068  - 2C0D         - MOV R0, R13
+  1070  - 2C42         - MOV R4, R2
+  1072  - 2C3F         - MOV R3, R15
+  1074  - 2B4400000000 - CMP R4, 0
+  1080  - 3A440026     - BE PC + 38
+  1084  - 2D530000     - MOV R5, [R3 + 0]
+  1088  - C15D0000     - STORE R5, [R13 + 0]
+  1092  - 07DD00000008 - ADD R13, 8
+  1098  - C1DDFFFC     - STORE R13, [R13 + -4]
+  1102  - 073300000004 - ADD R3, 4
+  1108  - 0B4400000001 - SUB R4, 1
+  1114  - 5644FFD8     - JMP PC + -40
+  1118  - 2F5500000000 - MOV R5, 0
+  1124  - C15DFFFC     - STORE R5, [R13 + -4]
+  1128  - 34EE         - RET R14, R14
+  1130  - 2D0F0000     - MOV R0, [R15 + 0]
+  1134  - 2D000000     - MOV R0, [R0 + 0]
+  1138  - 2F1100000000 - MOV R1, 0
+  1144  - 34EE         - RET R14, R14
+  1146  - 2D0F0000     - MOV R0, [R15 + 0]
+  1150  - 2D000004     - MOV R0, [R0 + 4]
+  1154  - 34EE         - RET R14, R14
+  1156  - 2D0F0000     - MOV R0, [R15 + 0]
+  1160  - 2B0000000000 - CMP R0, 0
+  1166  - 2F0000000000 - MOV R0, 0
+  1172  - 3E00000A     - BNE PC + 10
+  1176  - 2F0000000001 - MOV R0, 1
+  1182  - 34EE         - RET R14, R14
+  1184  - 2D2F0000     - MOV R2, [R15 + 0]
+  1188  - 2D3F0004     - MOV R3, [R15 + 4]
+  1192  - C12D0000     - STORE R2, [R13 + 0]
+  1196  - C13D0004     - STORE R3, [R13 + 4]
+  1200  - 2C0D         - MOV R0, R13
+  1202  - 07DD00000008 - ADD R13, 8
+  1208  - 34EE         - RET R14, R14
+  1210  - 2F1100000000 - MOV R1, 0
+  1216  - 2D2F0000     - MOV R2, [R15 + 0]
+  1220  - 2B2200000000 - CMP R2, 0
+  1226  - 3A000014     - BE PC + 20
+  1230  - 2D320004     - MOV R3, [R2 + 4]
+  1234  - C1120004     - STORE R1, [R2 + 4]
+  1238  - 2C12         - MOV R1, R2
+  1240  - 2C23         - MOV R2, R3
+  1242  - 5600FFEA     - JMP PC + -22
+  1246  - 2C01         - MOV R0, R1
+  1248  - 2F1100000000 - MOV R1, 0
+  1254  - 34EE         - RET R14, R14
+  1256  - 2F2200009996 - MOV R2, 39318
+  1262  - 2D020000     - MOV R0, [R2 + 0]
+  1266  - 2F1100000000 - MOV R1, 0
+  1272  - 34EE         - RET R14, R14
+  1274  - 2C0D         - MOV R0, R13
+  1276  - 2F2200009996 - MOV R2, 39318
+  1282  - 2D320000     - MOV R3, [R2 + 0]
+  1286  - C13D0000     - STORE R3, [R13 + 0]
+  1290  - 07DD00000004 - ADD R13, 4
+  1296  - 2B3300000000 - CMP R3, 0
+  1302  - 3A330008     - BE PC + 8
+  1306  - 5633FFE8     - JMP PC + -24
+  1310  - 2F1100000001 - MOV R1, 1
+  1316  - 34EE         - RET R14, R14
+out_stdout: |
+  instructions: 296
+  ============================================================
+  33
+  ticks: 1594
+out_log: |
+  DEBUG   machine:simulation    TICK:   0 PC:   0 REG1:      REG2:       R15_VAL:    0 R14_VAL:    0 AR:    0 DR:     0
+  DEBUG   machine:simulation    TICK:   1 PC:   0 REG1:      REG2:       R15_VAL:    0 R14_VAL:    0 AR:    0 DR:     0
+  DEBUG   machine:simulation    TICK:   2 PC:   0 REG1:      REG2:       R15_VAL:    0 R14_VAL:    0 AR:    0 DR:     0
+  DEBUG   machine:simulation    TICK:   3  PC:   0  REG1:R15    REG1_VAL:    0  REG2:R15    REG2_VAL:    0  R15_VAL:     0 R14_VAL:    0 AR:    0 DR:     0 MOV R15, VAL
+  DEBUG   machine:simulation    TICK:   4  PC:   2  REG1:R15    REG1_VAL:    0  REG2:R15    REG2_VAL:    0  R15_VAL:     0 R14_VAL:    0 AR:    0 DR:     0 MOV R15, VAL
+  DEBUG   machine:simulation    TICK:   5  PC:   2  REG1:R15    REG1_VAL:    0  REG2:R15    REG2_VAL:    0  R15_VAL:     0 R14_VAL:    0 AR:    2 DR:     0 MOV R15, VAL
+  DEBUG   machine:simulation    TICK:   6  PC:   2  REG1:R15    REG1_VAL:    0  REG2:R15    REG2_VAL:    0  R15_VAL:     0 R14_VAL:    0 AR:    2 DR:  9000 MOV R15, VAL
+  DEBUG   machine:simulation    TICK:   7  PC:   6  REG1:R15    REG1_VAL:    0  REG2:R15    REG2_VAL:    0  R15_VAL:     0 R14_VAL:    0 AR:    2 DR:  9000 MOV R15, VAL
+  DEBUG   machine:simulation    TICK:   8  PC:   6  REG1:R15    REG1_VAL: 9000  REG2:R15    REG2_VAL: 9000  R15_VAL:  9000 R14_VAL:    0 AR:    2 DR:  9000 MOV R15, VAL
+  DEBUG   machine:simulation    TICK:   9  PC:   6  REG1:R15    REG1_VAL: 9000  REG2:R15    REG2_VAL: 9000  R15_VAL:  9000 R14_VAL:    0 AR:    6 DR:  9000 MOV R15, VAL
+  DEBUG   machine:simulation    TICK:  10  PC:   6  REG1:R15    REG1_VAL: 9000  REG2:R15    REG2_VAL: 9000  R15_VAL:  9000 R14_VAL:    0 AR:    6 DR:     0 MOV R13, VAL
+  DEBUG   machine:simulation    TICK:  11  PC:   6  REG1:R13    REG1_VAL:    0  REG2:R13    REG2_VAL:    0  R15_VAL:  9000 R14_VAL:    0 AR:    6 DR:     0 MOV R13, VAL
+  DEBUG   machine:simulation    TICK:  12  PC:   8  REG1:R13    REG1_VAL:    0  REG2:R13    REG2_VAL:    0  R15_VAL:  9000 R14_VAL:    0 AR:    6 DR:     0 MOV R13, VAL
+  DEBUG   machine:simulation    TICK:  13  PC:   8  REG1:R13    REG1_VAL:    0  REG2:R13    REG2_VAL:    0  R15_VAL:  9000 R14_VAL:    0 AR:    8 DR:     0 MOV R13, VAL
+  DEBUG   machine:simulation    TICK:  14  PC:   8  REG1:R13    REG1_VAL:    0  REG2:R13    REG2_VAL:    0  R15_VAL:  9000 R14_VAL:    0 AR:    8 DR:  3000 MOV R13, VAL
+  DEBUG   machine:simulation    TICK:  15  PC:  12  REG1:R13    REG1_VAL:    0  REG2:R13    REG2_VAL:    0  R15_VAL:  9000 R14_VAL:    0 AR:    8 DR:  3000 MOV R13, VAL
+  DEBUG   machine:simulation    TICK:  16  PC:  12  REG1:R13    REG1_VAL: 3000  REG2:R13    REG2_VAL: 3000  R15_VAL:  9000 R14_VAL:    0 AR:    8 DR:  3000 MOV R13, VAL
+  DEBUG   machine:simulation    TICK:  17  PC:  12  REG1:R13    REG1_VAL: 3000  REG2:R13    REG2_VAL: 3000  R15_VAL:  9000 R14_VAL:    0 AR:   12 DR:  3000 MOV R13, VAL
+  DEBUG   machine:simulation    TICK:  18  PC:  12  REG1:R13    REG1_VAL: 3000  REG2:R13    REG2_VAL: 3000  R15_VAL:  9000 R14_VAL:    0 AR:   12 DR:     0 SUB R15, VAL
+  DEBUG   machine:simulation    TICK:  19  PC:  12  REG1:R15    REG1_VAL: 9000  REG2:R15    REG2_VAL: 9000  R15_VAL:  9000 R14_VAL:    0 AR:   12 DR:     0 SUB R15, VAL
+  DEBUG   machine:simulation    TICK:  20  PC:  14  REG1:R15    REG1_VAL: 9000  REG2:R15    REG2_VAL: 9000  R15_VAL:  9000 R14_VAL:    0 AR:   12 DR:     0 SUB R15, VAL
+  DEBUG   machine:simulation    TICK:  21  PC:  14  REG1:R15    REG1_VAL: 9000  REG2:R15    REG2_VAL: 9000  R15_VAL:  9000 R14_VAL:    0 AR:   14 DR:     0 SUB R15, VAL
+  DEBUG   machine:simulation    TICK:  22  PC:  14  REG1:R15    REG1_VAL: 9000  REG2:R15    REG2_VAL: 9000  R15_VAL:  9000 R14_VAL:    0 AR:   14 DR:    28 SUB R15, VAL
+  DEBUG   machine:simulation    TICK:  23  PC:  18  REG1:R15    REG1_VAL: 9000  REG2:R15    REG2_VAL: 9000  R15_VAL:  9000 R14_VAL:    0 AR:   14 DR:    28 SUB R15, VAL
+  DEBUG   machine:simulation    TICK:  24  PC:  18  REG1:R15    REG1_VAL: 9000  REG2:R15    REG2_VAL: 9000  R15_VAL:  9000 R14_VAL:    0 AR:   14 DR:    28 SUB R15, VAL
+  DEBUG   machine:simulation    TICK:  25  PC:  18  REG1:R15    REG1_VAL: 8972  REG2:R15    REG2_VAL: 8972  R15_VAL:  8972 R14_VAL:    0 AR:   14 DR:    28 SUB R15, VAL
+  DEBUG   machine:simulation    TICK:  26  PC:  18  REG1:R15    REG1_VAL: 8972  REG2:R15    REG2_VAL: 8972  R15_VAL:  8972 R14_VAL:    0 AR:   18 DR:    28 SUB R15, VAL
+  DEBUG   machine:simulation    TICK:  27  PC:  18  REG1:R15    REG1_VAL: 8972  REG2:R15    REG2_VAL: 8972  R15_VAL:  8972 R14_VAL:    0 AR:   18 DR:     0 SUB R15, VAL
+  DEBUG   machine:simulation    TICK:  28  PC:  18  REG1:R15    REG1_VAL: 8972  REG2:R15    REG2_VAL: 8972  R15_VAL:  8972 R14_VAL:    0 AR:   18 DR:     0 SUB R15, VAL
+  DEBUG   machine:simulation    TICK:  29  PC:  20  REG1:R15    REG1_VAL: 8972  REG2:R15    REG2_VAL: 8972  R15_VAL:  8972 R14_VAL:    0 AR:   18 DR:     0 SUB R15, VAL
+  DEBUG   machine:simulation    TICK:  30  PC:  20  REG1:R15    REG1_VAL: 8972  REG2:R15    REG2_VAL: 8972  R15_VAL:  8972 R14_VAL:    0 AR:   20 DR:     0 SUB R15, VAL
+  DEBUG   machine:simulation    TICK:  31  PC:  20  REG1:R15    REG1_VAL: 8972  REG2:R15    REG2_VAL: 8972  R15_VAL:  8972 R14_VAL:    0 AR:   20 DR:     4 SUB R15, VAL
+  DEBUG   machine:simulation    TICK:  32  PC:  24  REG1:R15    REG1_VAL: 8972  REG2:R15    REG2_VAL: 8972  R15_VAL:  8972 R14_VAL:    0 AR:   20 DR:     4 SUB R15, VAL
+  DEBUG   machine:simulation    TICK:  33  PC:  24  REG1:R15    REG1_VAL: 8972  REG2:R15    REG2_VAL: 8972  R15_VAL:  8972 R14_VAL:    0 AR:   20 DR:     4 SUB R15, VAL
+  DEBUG   machine:simulation    TICK:  34  PC:  24  REG1:R15    REG1_VAL: 8968  REG2:R15    REG2_VAL: 8968  R15_VAL:  8968 R14_VAL:    0 AR:   20 DR:     4 SUB R15, VAL
+  DEBUG   machine:simulation    TICK:  35  PC:  24  REG1:R15    REG1_VAL: 8968  REG2:R15    REG2_VAL: 8968  R15_VAL:  8968 R14_VAL:    0 AR:   24 DR:     4 SUB R15, VAL
+  DEBUG   machine:simulation    TICK:  36  PC:  24  REG1:R15    REG1_VAL: 8968  REG2:R15    REG2_VAL: 8968  R15_VAL:  8968 R14_VAL:    0 AR:   24 DR:     0 STORE R14, [R15 + 0]
+  DEBUG   machine:simulation    TICK:  37  PC:  24  REG1:R14    REG1_VAL:    0  REG2:R15    REG2_VAL: 8968  R15_VAL:  8968 R14_VAL:    0 AR:   24 DR:     0 STORE R14, [R15 + 0]
+  DEBUG   machine:simulation    TICK:  38  PC:  28  REG1:R14    REG1_VAL:    0  REG2:R15    REG2_VAL: 8968  R15_VAL:  8968 R14_VAL:    0 AR:   24 DR:     0 STORE R14, [R15 + 0]
+  DEBUG   machine:simulation    TICK:  39  PC:  28  REG1:R14    REG1_VAL:    0  REG2:R15    REG2_VAL: 8968  R15_VAL:  8968 R14_VAL:    0 AR: 8968 DR:     0 STORE R14, [R15 + 0]
+  DEBUG   machine:simulation    TICK:  40  PC:  28  REG1:R14    REG1_VAL:    0  REG2:R15    REG2_VAL: 8968  R15_VAL:  8968 R14_VAL:    0 AR: 8968 DR:     0 STORE R14, [R15 + 0]
+  DEBUG   machine:simulation    TICK:  41  PC:  28  REG1:R14    REG1_VAL:    0  REG2:R15    REG2_VAL: 8968  R15_VAL:  8968 R14_VAL:    0 AR:   28 DR:     0 STORE R14, [R15 + 0]
+  DEBUG   machine:simulation    TICK:  42  PC:  28  REG1:R14    REG1_VAL:    0  REG2:R15    REG2_VAL: 8968  R15_VAL:  8968 R14_VAL:    0 AR:   28 DR:     0 MOV R2, VAL
+  DEBUG   machine:simulation    TICK:  43  PC:  28  REG1:R2     REG1_VAL:    0  REG2:R2     REG2_VAL:    0  R15_VAL:  8968 R14_VAL:    0 AR:   28 DR:     0 MOV R2, VAL
+  DEBUG   machine:simulation    TICK:  44  PC:  30  REG1:R2     REG1_VAL:    0  REG2:R2     REG2_VAL:    0  R15_VAL:  8968 R14_VAL:    0 AR:   28 DR:     0 MOV R2, VAL
+  DEBUG   machine:simulation    TICK:  45  PC:  30  REG1:R2     REG1_VAL:    0  REG2:R2     REG2_VAL:    0  R15_VAL:  8968 R14_VAL:    0 AR:   30 DR:     0 MOV R2, VAL
+  DEBUG   machine:simulation    TICK:  46  PC:  30  REG1:R2     REG1_VAL:    0  REG2:R2     REG2_VAL:    0  R15_VAL:  8968 R14_VAL:    0 AR:   30 DR:     0 MOV R2, VAL
+  DEBUG   machine:simulation    TICK:  47  PC:  34  REG1:R2     REG1_VAL:    0  REG2:R2     REG2_VAL:    0  R15_VAL:  8968 R14_VAL:    0 AR:   30 DR:     0 MOV R2, VAL
+  DEBUG   machine:simulation    TICK:  48  PC:  34  REG1:R2     REG1_VAL:    0  REG2:R2     REG2_VAL:    0  R15_VAL:  8968 R14_VAL:    0 AR:   30 DR:     0 MOV R2, VAL
+  DEBUG   machine:simulation    TICK:  49  PC:  34  REG1:R2     REG1_VAL:    0  REG2:R2     REG2_VAL:    0  R15_VAL:  8968 R14_VAL:    0 AR:   34 DR:     0 MOV R2, VAL
+  DEBUG   machine:simulation    TICK:  50  PC:  34  REG1:R2     REG1_VAL:    0  REG2:R2     REG2_VAL:    0  R15_VAL:  8968 R14_VAL:    0 AR:   34 DR:     0 CALL R14, VAL
+  DEBUG   machine:simulation    TICK:  51  PC:  34  REG1:R14    REG1_VAL:    0  REG2:R14    REG2_VAL:    0  R15_VAL:  8968 R14_VAL:    0 AR:   34 DR:     0 CALL R14, VAL
+  DEBUG   machine:simulation    TICK:  52  PC:  36  REG1:R14    REG1_VAL:    0  REG2:R14    REG2_VAL:    0  R15_VAL:  8968 R14_VAL:    0 AR:   34 DR:     0 CALL R14, VAL
+  DEBUG   machine:simulation    TICK:  53  PC:  36  REG1:R14    REG1_VAL:    0  REG2:R14    REG2_VAL:    0  R15_VAL:  8968 R14_VAL:    0 AR:   36 DR:     0 CALL R14, VAL
+  DEBUG   machine:simulation    TICK:  54  PC:  36  REG1:R14    REG1_VAL:    0  REG2:R14    REG2_VAL:    0  R15_VAL:  8968 R14_VAL:    0 AR:   36 DR:  1256 CALL R14, VAL
+  DEBUG   machine:simulation    TICK:  55  PC:  40  REG1:R14    REG1_VAL:    0  REG2:R14    REG2_VAL:    0  R15_VAL:  8968 R14_VAL:    0 AR:   36 DR:  1256 CALL R14, VAL
+  DEBUG   machine:simulation    TICK:  56  PC:1256  REG1:R14    REG1_VAL:   40  REG2:R14    REG2_VAL:   40  R15_VAL:  8968 R14_VAL:   40 AR:   36 DR:  1256 CALL R14, VAL
+  DEBUG   machine:simulation    TICK:  57  PC:1256  REG1:R14    REG1_VAL:   40  REG2:R14    REG2_VAL:   40  R15_VAL:  8968 R14_VAL:   40 AR: 1256 DR:  1256 CALL R14, VAL
+  DEBUG   machine:simulation    TICK:  58  PC:1256  REG1:R14    REG1_VAL:   40  REG2:R14    REG2_VAL:   40  R15_VAL:  8968 R14_VAL:   40 AR: 1256 DR:     0 MOV R2, VAL
+  DEBUG   machine:simulation    TICK:  59  PC:1256  REG1:R2     REG1_VAL:    0  REG2:R2     REG2_VAL:    0  R15_VAL:  8968 R14_VAL:   40 AR: 1256 DR:     0 MOV R2, VAL
+  DEBUG   machine:simulation    TICK:  60  PC:1258  REG1:R2     REG1_VAL:    0  REG2:R2     REG2_VAL:    0  R15_VAL:  8968 R14_VAL:   40 AR: 1256 DR:     0 MOV R2, VAL
+  DEBUG   machine:simulation    TICK:  61  PC:1258  REG1:R2     REG1_VAL:    0  REG2:R2     REG2_VAL:    0  R15_VAL:  8968 R14_VAL:   40 AR: 1258 DR:     0 MOV R2, VAL
+  DEBUG   machine:simulation    TICK:  62  PC:1258  REG1:R2     REG1_VAL:    0  REG2:R2     REG2_VAL:    0  R15_VAL:  8968 R14_VAL:   40 AR: 1258 DR: 39318 MOV R2, VAL
+  DEBUG   machine:simulation    TICK:  63  PC:1262  REG1:R2     REG1_VAL:    0  REG2:R2     REG2_VAL:    0  R15_VAL:  8968 R14_VAL:   40 AR: 1258 DR: 39318 MOV R2, VAL
+  DEBUG   machine:simulation    TICK:  64  PC:1262  REG1:R2     REG1_VAL:39318  REG2:R2     REG2_VAL:39318  R15_VAL:  8968 R14_VAL:   40 AR: 1258 DR: 39318 MOV R2, VAL
+  DEBUG   machine:simulation    TICK:  65  PC:1262  REG1:R2     REG1_VAL:39318  REG2:R2     REG2_VAL:39318  R15_VAL:  8968 R14_VAL:   40 AR: 1262 DR: 39318 MOV R2, VAL
+  DEBUG   machine:simulation    TICK:  66  PC:1262  REG1:R2     REG1_VAL:39318  REG2:R2     REG2_VAL:39318  R15_VAL:  8968 R14_VAL:   40 AR: 1262 DR:     0 MOV R0, [R2 + 0]
+  DEBUG   machine:simulation    TICK:  67  PC:1262  REG1:R0     REG1_VAL:    0  REG2:R2     REG2_VAL:39318  R15_VAL:  8968 R14_VAL:   40 AR: 1262 DR:     0 MOV R0, [R2 + 0]
+  DEBUG   machine:simulation    TICK:  68  PC:1262  REG1:R0     REG1_VAL:    0  REG2:R2     REG2_VAL:39318  R15_VAL:  8968 R14_VAL:   40 AR: 1262 DR:     0 MOV R0, [R2 + 0]
+  DEBUG   machine:simulation    TICK:  69  PC:1262  REG1:R0     REG1_VAL:    0  REG2:R2     REG2_VAL:39318  R15_VAL:  8968 R14_VAL:   40 AR:39318 DR:     0 MOV R0, [R2 + 0]
+  DEBUG   machine:simulation    TICK:  70  PC:1262  REG1:R0     REG1_VAL:    0  REG2:R2     REG2_VAL:39318  R15_VAL:  8968 R14_VAL:   40 AR:39318 DR:     1 MOV R0, [R2 + 1]
+  DEBUG   machine:simulation    TICK:  71  PC:1266  REG1:R0     REG1_VAL:    0  REG2:R2     REG2_VAL:39318  R15_VAL:  8968 R14_VAL:   40 AR:39318 DR:     1 MOV R0, [R2 + 1]
+  DEBUG   machine:simulation    TICK:  72  PC:1266  REG1:R0     REG1_VAL:    1  REG2:R2     REG2_VAL:39318  R15_VAL:  8968 R14_VAL:   40 AR:39318 DR:     1 MOV R0, [R2 + 1]
+  DEBUG   machine:simulation    TICK:  73  PC:1266  REG1:R0     REG1_VAL:    1  REG2:R2     REG2_VAL:39318  R15_VAL:  8968 R14_VAL:   40 AR: 1266 DR:     1 MOV R0, [R2 + 1]
+  DEBUG   machine:simulation    TICK:  74  PC:1266  REG1:R0     REG1_VAL:    1  REG2:R2     REG2_VAL:39318  R15_VAL:  8968 R14_VAL:   40 AR: 1266 DR:     0 MOV R1, VAL
+  DEBUG   machine:simulation    TICK:  75  PC:1266  REG1:R1     REG1_VAL:    0  REG2:R1     REG2_VAL:    0  R15_VAL:  8968 R14_VAL:   40 AR: 1266 DR:     0 MOV R1, VAL
+  DEBUG   machine:simulation    TICK:  76  PC:1268  REG1:R1     REG1_VAL:    0  REG2:R1     REG2_VAL:    0  R15_VAL:  8968 R14_VAL:   40 AR: 1266 DR:     0 MOV R1, VAL
+  DEBUG   machine:simulation    TICK:  77  PC:1268  REG1:R1     REG1_VAL:    0  REG2:R1     REG2_VAL:    0  R15_VAL:  8968 R14_VAL:   40 AR: 1268 DR:     0 MOV R1, VAL
+  DEBUG   machine:simulation    TICK:  78  PC:1268  REG1:R1     REG1_VAL:    0  REG2:R1     REG2_VAL:    0  R15_VAL:  8968 R14_VAL:   40 AR: 1268 DR:     0 MOV R1, VAL
+  DEBUG   machine:simulation    TICK:  79  PC:1272  REG1:R1     REG1_VAL:    0  REG2:R1     REG2_VAL:    0  R15_VAL:  8968 R14_VAL:   40 AR: 1268 DR:     0 MOV R1, VAL
+  DEBUG   machine:simulation    TICK:  80  PC:1272  REG1:R1     REG1_VAL:    0  REG2:R1     REG2_VAL:    0  R15_VAL:  8968 R14_VAL:   40 AR: 1268 DR:     0 MOV R1, VAL
+  DEBUG   machine:simulation    TICK:  81  PC:1272  REG1:R1     REG1_VAL:    0  REG2:R1     REG2_VAL:    0  R15_VAL:  8968 R14_VAL:   40 AR: 1272 DR:     0 MOV R1, VAL
+  DEBUG   machine:simulation    TICK:  82  PC:1272  REG1:R1     REG1_VAL:    0  REG2:R1     REG2_VAL:    0  R15_VAL:  8968 R14_VAL:   40 AR: 1272 DR: 11277 RET R14, R14
+  DEBUG   machine:simulation    TICK:  83  PC:1272  REG1:R14    REG1_VAL:   40  REG2:R14    REG2_VAL:   40  R15_VAL:  8968 R14_VAL:   40 AR: 1272 DR: 11277 RET R14, R14
+  DEBUG   machine:simulation    TICK:  84  PC:1274  REG1:R14    REG1_VAL:   40  REG2:R14    REG2_VAL:   40  R15_VAL:  8968 R14_VAL:   40 AR: 1272 DR: 11277 RET R14, R14
+  DEBUG   machine:simulation    TICK:  85  PC:  40  REG1:R14    REG1_VAL:   40  REG2:R14    REG2_VAL:   40  R15_VAL:  8968 R14_VAL:   40 AR: 1272 DR: 11277 RET R14, R14
+  DEBUG   machine:simulation    TICK:  86  PC:  40  REG1:R14    REG1_VAL:   40  REG2:R14    REG2_VAL:   40  R15_VAL:  8968 R14_VAL:   40 AR:   40 DR: 11277 RET R14, R14
+  DEBUG   machine:simulation    TICK:  87  PC:  40  REG1:R14    REG1_VAL:   40  REG2:R14    REG2_VAL:   40  R15_VAL:  8968 R14_VAL:   40 AR:   40 DR:     0 MOV R14, [R15 + 0]
+  DEBUG   machine:simulation    TICK:  88  PC:  40  REG1:R14    REG1_VAL:   40  REG2:R15    REG2_VAL: 8968  R15_VAL:  8968 R14_VAL:   40 AR:   40 DR:     0 MOV R14, [R15 + 0]
+  DEBUG   machine:simulation    TICK:  89  PC:  40  REG1:R14    REG1_VAL:   40  REG2:R15    REG2_VAL: 8968  R15_VAL:  8968 R14_VAL:   40 AR:   40 DR:     0 MOV R14, [R15 + 0]
+  DEBUG   machine:simulation    TICK:  90  PC:  40  REG1:R14    REG1_VAL:   40  REG2:R15    REG2_VAL: 8968  R15_VAL:  8968 R14_VAL:   40 AR: 8968 DR:     0 MOV R14, [R15 + 0]
+  DEBUG   machine:simulation    TICK:  91  PC:  40  REG1:R14    REG1_VAL:   40  REG2:R15    REG2_VAL: 8968  R15_VAL:  8968 R14_VAL:   40 AR: 8968 DR:     0 MOV R14, [R15 + 0]
+  DEBUG   machine:simulation    TICK:  92  PC:  44  REG1:R14    REG1_VAL:   40  REG2:R15    REG2_VAL: 8968  R15_VAL:  8968 R14_VAL:   40 AR: 8968 DR:     0 MOV R14, [R15 + 0]
+  DEBUG   machine:simulation    TICK:  93  PC:  44  REG1:R14    REG1_VAL:    0  REG2:R15    REG2_VAL: 8968  R15_VAL:  8968 R14_VAL:    0 AR: 8968 DR:     0 MOV R14, [R15 + 0]
+  DEBUG   machine:simulation    TICK:  94  PC:  44  REG1:R14    REG1_VAL:    0  REG2:R15    REG2_VAL: 8968  R15_VAL:  8968 R14_VAL:    0 AR:   44 DR:     0 MOV R14, [R15 + 0]
+  DEBUG   machine:simulation    TICK:  95  PC:  44  REG1:R14    REG1_VAL:    0  REG2:R15    REG2_VAL: 8968  R15_VAL:  8968 R14_VAL:    0 AR:   44 DR:     0 ADD R15, VAL
+  DEBUG   machine:simulation    TICK:  96  PC:  44  REG1:R15    REG1_VAL: 8968  REG2:R15    REG2_VAL: 8968  R15_VAL:  8968 R14_VAL:    0 AR:   44 DR:     0 ADD R15, VAL
+  DEBUG   machine:simulation    TICK:  97  PC:  46  REG1:R15    REG1_VAL: 8968  REG2:R15    REG2_VAL: 8968  R15_VAL:  8968 R14_VAL:    0 AR:   44 DR:     0 ADD R15, VAL
+  DEBUG   machine:simulation    TICK:  98  PC:  46  REG1:R15    REG1_VAL: 8968  REG2:R15    REG2_VAL: 8968  R15_VAL:  8968 R14_VAL:    0 AR:   46 DR:     0 ADD R15, VAL
+  DEBUG   machine:simulation    TICK:  99  PC:  46  REG1:R15    REG1_VAL: 8968  REG2:R15    REG2_VAL: 8968  R15_VAL:  8968 R14_VAL:    0 AR:   46 DR:     4 ADD R15, VAL
+  DEBUG   machine:simulation    TICK: 100  PC:  50  REG1:R15    REG1_VAL: 8968  REG2:R15    REG2_VAL: 8968  R15_VAL:  8968 R14_VAL:    0 AR:   46 DR:     4 ADD R15, VAL
+  INFO    machine:simulation    output_buffer: '[3, 3]'

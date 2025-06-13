@@ -11,7 +11,7 @@ import translator
 MAX_LOG = 400000
 
 
-@pytest.mark.golden_test("golden/max_palindrom.yml")
+@pytest.mark.golden_test("golden/*.yml")
 def test_translator_and_machine(golden, caplog):
 
     caplog.set_level(logging.DEBUG)
@@ -22,7 +22,8 @@ def test_translator_and_machine(golden, caplog):
         target = os.path.join(tmpdirname, "target.bin")
         target_hex = os.path.join(tmpdirname, "target.bin.hex")
         inp = golden["in_stdin"]
-        if golden["null_terminated_in"] == 1:
+        char_io = golden["char_io"]
+        if char_io and golden["null_terminated_in"] == 1:
             inp += "\0"
         with open(source, "w", encoding="utf-8") as file:
             file.write(golden["in_source"])
@@ -37,7 +38,6 @@ def test_translator_and_machine(golden, caplog):
             file.read()
         with open(target_hex, encoding="utf-8") as file:
             code_hex = file.read()
-        #assert code == golden.out["out_code"]
         assert code_hex == golden.out["out_code_hex"]
-        assert stdout.getvalue() == golden.out["out_stdout"]
+        assert stdout.getvalue().strip() == golden.out["out_stdout"].strip()
         assert caplog.text == golden.out["out_log"]

@@ -24,6 +24,7 @@ class OpCode(Enum):
     BG: int = 20
     JMP: int = 21
     STORE_IMM: int = 22
+    ADC: int = 23
     STORE: int = 48
 
 class OperandType(Enum):

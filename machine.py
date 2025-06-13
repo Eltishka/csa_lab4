@@ -80,6 +80,17 @@ class Sel:
         LOW: int = 0
         FULL: int = 1
 
+    class ALUOperations(Enum):
+        ADD: int = 0
+        SUB: int = 1
+        MUL: int = 2
+        DIV: int = 3
+        RMD: int = 4
+        AND: int = 5
+        OR: int = 6
+        XOR: int = 7
+        NOT: int = 8
+
 
 class RegisterBlock:
     class Register(Enum):
@@ -205,7 +216,6 @@ class DataPath:
             self.register_block.registers[RegisterBlock.Register(self.reg_out1)] = self.alu.result
         if sel == Sel.RegisterIn.PC:
             self.register_block.registers[RegisterBlock.Register(self.reg_out1)] = self.control_unit.program_counter
-        # TODO something will not work
 
 
 class ALU:
@@ -214,17 +224,6 @@ class ALU:
         CARRY = 1
         OVERFLOW = 2
         NEGATIVE = 3
-
-    class Operations(Enum):
-        ADD: int = 0
-        SUB: int = 1
-        MUL: int = 2
-        DIV: int = 3
-        RMD: int = 4
-        AND: int = 5
-        OR: int = 6
-        XOR: int = 7
-        NOT: int = 8
 
     def __init__(self, datapath: DataPath):
         self.datapath = datapath
@@ -245,15 +244,15 @@ class ALU:
         }
 
         self.operations = {
-            self.Operations.ADD: self.add,
-            self.Operations.SUB: self.sub,
-            self.Operations.MUL: self.mul,
-            self.Operations.DIV: self.div,
-            self.Operations.RMD: self.rmd,
-            self.Operations.AND: self.and_,
-            self.Operations.OR: self.or_,
-            self.Operations.XOR: self.xor,
-            self.Operations.NOT: self.not_,
+            Sel.ALUOperations.ADD: self.add,
+            Sel.ALUOperations.SUB: self.sub,
+            Sel.ALUOperations.MUL: self.mul,
+            Sel.ALUOperations.DIV: self.div,
+            Sel.ALUOperations.RMD: self.rmd,
+            Sel.ALUOperations.AND: self.and_,
+            Sel.ALUOperations.OR: self.or_,
+            Sel.ALUOperations.XOR: self.xor,
+            Sel.ALUOperations.NOT: self.not_,
         }
 
     def latch_right_alu(self, sel: Sel.RightALU):
@@ -274,7 +273,7 @@ class ALU:
         if sel == Sel.LeftALU.ZERO:
             self.left = 0
 
-    def execute(self, operation: Operations):
+    def execute(self, operation: Sel.ALUOperations):
         self.operations[operation]()
 
     def latch_flags(self):
@@ -413,7 +412,7 @@ class ControlUnit:
             [
                 (Signal.SELECT_LEFT_ALU, Sel.LeftALU.Register),
                 (Signal.SELECT_RIGHT_ALU, Sel.RightALU.ZERO),
-                (Signal.EXECUTE_ALU, ALU.Operations.ADD),
+                (Signal.EXECUTE_ALU, Sel.ALUOperations.ADD),
                 (Signal.LATCH_PC, Sel.PC.PLUS_TWO),
                 (Signal.LATCH_mPC, Sel.MicroPC.OPCODE)
             ],
@@ -421,7 +420,7 @@ class ControlUnit:
             [  # REG [REG + n]  # 4
                 (Signal.SELECT_RIGHT_ALU, Sel.RightALU.DR),
                 (Signal.SELECT_LEFT_ALU, Sel.LeftALU.Register),
-                (Signal.EXECUTE_ALU, ALU.Operations.ADD),
+                (Signal.EXECUTE_ALU, Sel.ALUOperations.ADD),
                 (Signal.LATCH_mPC, Sel.MicroPC.PLUS_ONE)
             ],
             [
@@ -435,7 +434,7 @@ class ControlUnit:
             [
                 (Signal.SELECT_RIGHT_ALU, Sel.RightALU.DR),
                 (Signal.SELECT_LEFT_ALU, Sel.LeftALU.ZERO),
-                (Signal.EXECUTE_ALU, ALU.Operations.ADD),
+                (Signal.EXECUTE_ALU, Sel.ALUOperations.ADD),
                 (Signal.LATCH_PC, Sel.PC.PLUS_FOUR),
                 (Signal.LATCH_mPC, Sel.MicroPC.OPCODE),
             ],
@@ -443,7 +442,7 @@ class ControlUnit:
             [
                 (Signal.SELECT_RIGHT_ALU, Sel.RightALU.DR),
                 (Signal.SELECT_LEFT_ALU, Sel.LeftALU.PC),
-                (Signal.EXECUTE_ALU, ALU.Operations.ADD),
+                (Signal.EXECUTE_ALU, Sel.ALUOperations.ADD),
                 (Signal.LATCH_mPC, Sel.MicroPC.PLUS_ONE)
             ],
             [
@@ -466,7 +465,7 @@ class ControlUnit:
             [
                 (Signal.SELECT_RIGHT_ALU, Sel.RightALU.DR),
                 (Signal.SELECT_LEFT_ALU, Sel.LeftALU.ZERO),
-                (Signal.EXECUTE_ALU, ALU.Operations.ADD),
+                (Signal.EXECUTE_ALU, Sel.ALUOperations.ADD),
                 (Signal.LATCH_mPC, Sel.MicroPC.OPCODE),
                 (Signal.LATCH_PC, Sel.PC.PLUS_FOUR)
             ],
@@ -478,7 +477,7 @@ class ControlUnit:
             [
                 (Signal.SELECT_LEFT_ALU, Sel.LeftALU.ALU),
                 (Signal.SELECT_RIGHT_ALU, Sel.RightALU.REGISTER),
-                (Signal.EXECUTE_ALU, ALU.Operations.ADD),
+                (Signal.EXECUTE_ALU, Sel.ALUOperations.ADD),
                 (Signal.LATCH_FLAGS),
                 (Signal.LATCH_mPC, Sel.MicroPC.PLUS_ONE),
             ],
@@ -490,7 +489,7 @@ class ControlUnit:
             [
                 (Signal.SELECT_LEFT_ALU, Sel.LeftALU.ALU),
                 (Signal.SELECT_RIGHT_ALU, Sel.RightALU.REGISTER),
-                (Signal.EXECUTE_ALU, ALU.Operations.SUB),
+                (Signal.EXECUTE_ALU, Sel.ALUOperations.SUB),
                 (Signal.LATCH_FLAGS),
                 (Signal.LATCH_mPC, Sel.MicroPC.PLUS_ONE)
             ],
@@ -502,7 +501,7 @@ class ControlUnit:
             [
                 (Signal.SELECT_LEFT_ALU, Sel.LeftALU.ALU),
                 (Signal.SELECT_RIGHT_ALU, Sel.RightALU.REGISTER),
-                (Signal.EXECUTE_ALU, ALU.Operations.MUL),
+                (Signal.EXECUTE_ALU, Sel.ALUOperations.MUL),
                 (Signal.LATCH_FLAGS),
                 (Signal.LATCH_mPC, Sel.MicroPC.PLUS_ONE)
             ],
@@ -514,7 +513,7 @@ class ControlUnit:
             [
                 (Signal.SELECT_LEFT_ALU, Sel.LeftALU.ALU),
                 (Signal.SELECT_RIGHT_ALU, Sel.RightALU.REGISTER),
-                (Signal.EXECUTE_ALU, ALU.Operations.DIV),
+                (Signal.EXECUTE_ALU, Sel.ALUOperations.DIV),
                 (Signal.LATCH_FLAGS),
                 (Signal.LATCH_mPC, Sel.MicroPC.PLUS_ONE)
             ],
@@ -526,7 +525,7 @@ class ControlUnit:
             [
                 (Signal.SELECT_LEFT_ALU, Sel.LeftALU.ALU),
                 (Signal.SELECT_RIGHT_ALU, Sel.RightALU.REGISTER),
-                (Signal.EXECUTE_ALU, ALU.Operations.RMD),
+                (Signal.EXECUTE_ALU, Sel.ALUOperations.RMD),
                 (Signal.LATCH_FLAGS),
                 (Signal.LATCH_mPC, Sel.MicroPC.PLUS_ONE)
             ],
@@ -538,7 +537,7 @@ class ControlUnit:
             [
                 (Signal.SELECT_LEFT_ALU, Sel.LeftALU.ALU),
                 (Signal.SELECT_RIGHT_ALU, Sel.RightALU.REGISTER),
-                (Signal.EXECUTE_ALU, ALU.Operations.AND),
+                (Signal.EXECUTE_ALU, Sel.ALUOperations.AND),
                 (Signal.LATCH_FLAGS),
                 (Signal.LATCH_mPC, Sel.MicroPC.PLUS_ONE)
             ],
@@ -550,7 +549,7 @@ class ControlUnit:
             [
                 (Signal.SELECT_LEFT_ALU, Sel.LeftALU.ALU),
                 (Signal.SELECT_RIGHT_ALU, Sel.RightALU.REGISTER),
-                (Signal.EXECUTE_ALU, ALU.Operations.OR),
+                (Signal.EXECUTE_ALU, Sel.ALUOperations.OR),
                 (Signal.LATCH_FLAGS),
                 (Signal.LATCH_mPC, Sel.MicroPC.PLUS_ONE)
             ],
@@ -562,7 +561,7 @@ class ControlUnit:
             [
                 (Signal.SELECT_LEFT_ALU, Sel.LeftALU.ALU),
                 (Signal.SELECT_RIGHT_ALU, Sel.RightALU.REGISTER),
-                (Signal.EXECUTE_ALU, ALU.Operations.XOR),
+                (Signal.EXECUTE_ALU, Sel.ALUOperations.XOR),
                 (Signal.LATCH_FLAGS),
                 (Signal.LATCH_mPC, Sel.MicroPC.PLUS_ONE)
             ],
@@ -574,7 +573,7 @@ class ControlUnit:
             [
                 (Signal.SELECT_LEFT_ALU, Sel.LeftALU.ALU),
                 (Signal.SELECT_RIGHT_ALU, Sel.RightALU.REGISTER),
-                (Signal.EXECUTE_ALU, ALU.Operations.NOT),
+                (Signal.EXECUTE_ALU, Sel.ALUOperations.NOT),
                 (Signal.LATCH_FLAGS),
                 (Signal.LATCH_mPC, Sel.MicroPC.PLUS_ONE)
             ],
@@ -586,7 +585,7 @@ class ControlUnit:
             [
                 (Signal.SELECT_LEFT_ALU, Sel.LeftALU.ALU),
                 (Signal.SELECT_RIGHT_ALU, Sel.RightALU.REGISTER),
-                (Signal.EXECUTE_ALU, ALU.Operations.SUB),
+                (Signal.EXECUTE_ALU, Sel.ALUOperations.SUB),
                 (Signal.LATCH_FLAGS),
                 (Signal.LATCH_mPC, Sel.MicroPC.ZERO),
             ],
@@ -600,7 +599,7 @@ class ControlUnit:
             [
                 (Signal.SELECT_RIGHT_ALU, Sel.RightALU.DR),
                 (Signal.SELECT_LEFT_ALU, Sel.LeftALU.Register),
-                (Signal.EXECUTE_ALU, ALU.Operations.ADD),
+                (Signal.EXECUTE_ALU, Sel.ALUOperations.ADD),
                 (Signal.LATCH_PC, Sel.PC.PLUS_FOUR),
                 (Signal.LATCH_mPC, Sel.MicroPC.PLUS_ONE),
             ],
@@ -748,7 +747,8 @@ class ControlUnit:
         elif instr[1] == OperandType.IMMEDIATE:
             intstr_mnem += str(instr[2])[9:] + ", VAL"
         elif instr[1] == OperandType.INDIRECT_RIGHT:
-            intstr_mnem += str(instr[2])[9:] + ", [" + str(instr[3])[9:] + " + " + str(self.datapath.data_register) +"]"
+            intstr_mnem += str(instr[2])[9:] + ", [" + str(instr[3])[9:] + " + " + str(
+                self.datapath.data_register) + "]"
         else:
             intstr_mnem += "PC + " + str(self.datapath.data_register)
         components = [
@@ -808,11 +808,13 @@ def main(code_file, input_file, char_io=True):
 
     if char_io:
         input_token = [ord(ch) for ch in input_token]
+    else:
+        input_token = [int(str(ch)) if ord(ch) != 0 else 0 for ch in input_token]
 
     output, ticks = simulation(
         code,
         input_tokens=input_token,
-        data_memory_size=100000,
+        data_memory_size=10008,
         limit=6000000,
     )
     if char_io:
@@ -831,4 +833,4 @@ if __name__ == "__main__":
 
     assert len(sys.argv) >= 3, "Wrong arguments: machine.py <code_file> <input_file>"
     _, code_file, input_file, char_io = sys.argv
-    main(code_file, input_file, char_io)
+    main(code_file, input_file, int(char_io))

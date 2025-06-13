@@ -1,33 +1,33 @@
 in_source: |-
   (defun insert (item lst)
-      (if (null lst)
-          (list item)
-          (if (< item (car lst))
-              ((push item lst))
-              (push (car lst) (insert item (cdr lst))))))
+    (if (null lst)
+        (list item)
+        (if (< item (car lst))
+            ((push item lst))
+            (push (car lst) (insert item (cdr lst))))))
   
   (defun insertion-sort (lst)
-      (if (null lst)
-          0
-          (insert (car lst) (insertion-sort (cdr lst)))))
+    (if (null lst)
+        0
+        (insert (car lst) (insertion-sort (cdr lst)))))
   
   (let ((el (read))
-      (lst ()))
-      (loop while (!= el 0)
+       (lst ()))
+    (loop while (!= el 0)
           do
-             (setq lst (push el lst))
-             (setq el (read)))
+          (setq lst (push el lst))
+          (setq el (read)))
   
-      (setq lst (insertion-sort lst))
+    (setq lst (insertion-sort lst))
   
-      (loop while (not (null lst))
+    (loop while (not (null lst))
           do
-              (print (car lst))
-              (setq lst (cdr lst))))
+          (print (car lst))
+          (setq lst (cdr lst))))
 in_stdin: |-
   98765
 null_terminated_in: 1
-char_io: 1
+char_io: 0
 out_code_hex: |-
   0     - 2FFF00002328 - MOV R15, 9000
   6     - 2FDD00000BB8 - MOV R13, 3000
@@ -473,11 +473,11 @@ out_log: |
   DEBUG   machine:simulation    TICK:  67  PC: 880  REG1:R0     REG1_VAL:    0  REG2:R2     REG2_VAL:39318  R15_VAL:  8988 R14_VAL:   40 AR:  880 DR:     0 MOV R0, [R2 + 0]
   DEBUG   machine:simulation    TICK:  68  PC: 880  REG1:R0     REG1_VAL:    0  REG2:R2     REG2_VAL:39318  R15_VAL:  8988 R14_VAL:   40 AR:  880 DR:     0 MOV R0, [R2 + 0]
   DEBUG   machine:simulation    TICK:  69  PC: 880  REG1:R0     REG1_VAL:    0  REG2:R2     REG2_VAL:39318  R15_VAL:  8988 R14_VAL:   40 AR:39318 DR:     0 MOV R0, [R2 + 0]
-  DEBUG   machine:simulation    TICK:  70  PC: 880  REG1:R0     REG1_VAL:    0  REG2:R2     REG2_VAL:39318  R15_VAL:  8988 R14_VAL:   40 AR:39318 DR:    57 MOV R0, [R2 + 57]
-  DEBUG   machine:simulation    TICK:  71  PC: 884  REG1:R0     REG1_VAL:    0  REG2:R2     REG2_VAL:39318  R15_VAL:  8988 R14_VAL:   40 AR:39318 DR:    57 MOV R0, [R2 + 57]
-  DEBUG   machine:simulation    TICK:  72  PC: 884  REG1:R0     REG1_VAL:   57  REG2:R2     REG2_VAL:39318  R15_VAL:  8988 R14_VAL:   40 AR:39318 DR:    57 MOV R0, [R2 + 57]
-  DEBUG   machine:simulation    TICK:  73  PC: 884  REG1:R0     REG1_VAL:   57  REG2:R2     REG2_VAL:39318  R15_VAL:  8988 R14_VAL:   40 AR:  884 DR:    57 MOV R0, [R2 + 57]
-  DEBUG   machine:simulation    TICK:  74  PC: 884  REG1:R0     REG1_VAL:   57  REG2:R2     REG2_VAL:39318  R15_VAL:  8988 R14_VAL:   40 AR:  884 DR:     0 MOV R1, VAL
+  DEBUG   machine:simulation    TICK:  70  PC: 880  REG1:R0     REG1_VAL:    0  REG2:R2     REG2_VAL:39318  R15_VAL:  8988 R14_VAL:   40 AR:39318 DR:     9 MOV R0, [R2 + 9]
+  DEBUG   machine:simulation    TICK:  71  PC: 884  REG1:R0     REG1_VAL:    0  REG2:R2     REG2_VAL:39318  R15_VAL:  8988 R14_VAL:   40 AR:39318 DR:     9 MOV R0, [R2 + 9]
+  DEBUG   machine:simulation    TICK:  72  PC: 884  REG1:R0     REG1_VAL:    9  REG2:R2     REG2_VAL:39318  R15_VAL:  8988 R14_VAL:   40 AR:39318 DR:     9 MOV R0, [R2 + 9]
+  DEBUG   machine:simulation    TICK:  73  PC: 884  REG1:R0     REG1_VAL:    9  REG2:R2     REG2_VAL:39318  R15_VAL:  8988 R14_VAL:   40 AR:  884 DR:     9 MOV R0, [R2 + 9]
+  DEBUG   machine:simulation    TICK:  74  PC: 884  REG1:R0     REG1_VAL:    9  REG2:R2     REG2_VAL:39318  R15_VAL:  8988 R14_VAL:   40 AR:  884 DR:     0 MOV R1, VAL
   DEBUG   machine:simulation    TICK:  75  PC: 884  REG1:R1     REG1_VAL:    0  REG2:R1     REG2_VAL:    0  R15_VAL:  8988 R14_VAL:   40 AR:  884 DR:     0 MOV R1, VAL
   DEBUG   machine:simulation    TICK:  76  PC: 886  REG1:R1     REG1_VAL:    0  REG2:R1     REG2_VAL:    0  R15_VAL:  8988 R14_VAL:   40 AR:  884 DR:     0 MOV R1, VAL
   DEBUG   machine:simulation    TICK:  77  PC: 886  REG1:R1     REG1_VAL:    0  REG2:R1     REG2_VAL:    0  R15_VAL:  8988 R14_VAL:   40 AR:  886 DR:     0 MOV R1, VAL
@@ -504,4 +504,4 @@ out_log: |
   DEBUG   machine:simulation    TICK:  98  PC:  46  REG1:R15    REG1_VAL: 8988  REG2:R15    REG2_VAL: 8988  R15_VAL:  8988 R14_VAL:    0 AR:   46 DR:     0 ADD R15, VAL
   DEBUG   machine:simulation    TICK:  99  PC:  46  REG1:R15    REG1_VAL: 8988  REG2:R15    REG2_VAL: 8988  R15_VAL:  8988 R14_VAL:    0 AR:   46 DR:     4 ADD R15, VAL
   DEBUG   machine:simulation    TICK: 100  PC:  50  REG1:R15    REG1_VAL: 8988  REG2:R15    REG2_VAL: 8988  R15_VAL:  8988 R14_VAL:    0 AR:   46 DR:     4 ADD R15, VAL
-  INFO    machine:simulation    output_buffer: '[53, 54, 55, 56, 57]'
+  INFO    machine:simulation    output_buffer: '[5, 6, 7, 8, 9]'
