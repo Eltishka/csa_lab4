@@ -150,24 +150,24 @@ char_io = 0/1 - поток ввода состоит из машинных сл�
 Сигналы:
 Реализованы, как enum `Signal` и enum `Sel`
 0. Signal.SELECT_LEFT_ALU:
- 0. REGISTER
- 1. ALU
- 2. ZERO
- 3. PC
+- 0. REGISTER
+- 1. ALU
+- 2. ZERO
+- 3. PC
 4. Signal.SELECT_RIGHT_ALU
- 4. REGISTER
- 5. DR
- 6. ZERO
+- 4. REGISTER
+- 5. DR
+- 6. ZERO
 7. Signal.EXECUTE_ALU
- 8. ADD
- 9. SUB
- 10. MUL
- 11. DIV
- 12. RMD
- 13. AND
- 14. OR
- 15. XOR
- 16. NOT
+- 8. ADD
+- 9. SUB
+- 10. MUL
+- 11. DIV
+- 12. RMD
+- 13. AND
+- 14. OR
+- 15. XOR
+- 16. NOT
 ### Datapath
 ![Datapath](datapath.png)
 Реализовано в классе `Datapath`
