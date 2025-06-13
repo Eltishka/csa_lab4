@@ -229,11 +229,11 @@ char_io = 0/1 - поток ввода состоит из машинных сл�
 Тестирование выполняется при помощи golden test-ов.
 Тесты реализованы в [golden_test.py](golden_test.py)
 Конфигурации:
-- [golden/cat.yml](golden/cat.yml)
-- [golden/bigint.yml](golden/bigint.yml)
-- [golden/factorial.yml](golden/factorial.yml)
-- [golden/hello_username.yml](golden/hello_username.yml)
-- [golden/hello_world.yml](golden/hello_world.yml)
-- [golden/max_palindrom.yml](golden/max_palindrom.yml)
-- [golden/sort.yml](golden/sort.yml)
-- [golden/statement.yml](golden/statement.yml)
+- [golden/cat.yml](golden/cat.yml) -- печатать данные, поданные через ввод
+- [golden/bigint.yml](golden/bigint.yml) -- сложение двух 64-битных чисел
+- [golden/factorial.yml](golden/factorial.yml) -- рекурсивный подсчет факториала
+- [golden/hello_username.yml](golden/hello_username.yml) -- запрашивает у пользователя имя, выводит приветствие с введенным именем
+- [golden/hello_world.yml](golden/hello_world.yml) -- печатает "hello world!"
+- [golden/max_palindrom.yml](golden/max_palindrom.yml) -- ищет и выводит максимальный палиндром pal = a * b, где a и b - трехзначные числа
+- [golden/sort.yml](golden/sort.yml) -- подается на вход список чисел, заканчивающийся нулем, выводится отсортированный список чисел
+- [golden/statement.yml](golden/statement.yml) -- показывает, что любое выражение (statement) -- expression
