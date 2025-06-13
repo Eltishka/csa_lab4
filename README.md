@@ -149,11 +149,14 @@ char_io = 0/1 - поток ввода состоит из машинных сл�
 Микропрограммное управление
 Сигналы:
 Реализованы, как enum `Signal` и enum `Sel`
+
+---
+ 
 0. Signal.SELECT_LEFT_ALU:
-- 0. REGISTER
-- 1. ALU
-- 2. ZERO
-- 3. PC
+   0. REGISTER
+   1. ALU
+   2. ZERO
+   3. PC
 4. Signal.SELECT_RIGHT_ALU
 - 4. REGISTER
 - 5. DR
