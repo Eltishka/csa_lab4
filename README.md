@@ -157,7 +157,7 @@ char_io = 0/1 - поток ввода состоит из машинных сл�
 - 1. ALU
 - 2. ZERO
 - 3. PC
-**4. Signal.SELECT_RIGHT_ALU**
+4. Signal.SELECT_RIGHT_ALU
 - 4. REGISTER
 - 5. DR
 - 6. ZERO
