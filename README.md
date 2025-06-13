@@ -146,64 +146,81 @@ target.bin - входной файл с бинарным кодом
 input - файл ввода
 char_io = 0/1 - поток ввода состоит из машинных слов (0) или символов (1)
 ```
-Микропрограммное управление
-Сигналы:
-Реализованы, как enum `Signal` и enum `Sel`
+### Особенности реализации
+Микропрограммное управление: 43-битный микрокод, в коде считаем, что все не указанные биты равны 0  
+Сигналы реализованы, как enum `Signal` и enum `Sel`
 
 ---
  
-**0. Signal.SELECT_LEFT_ALU:**
-- [0] `Sel.LeftALU.REGISTER` - Из выбранного регистра (`reg_out2`)
-- [1] `Sel.LeftALU.ALU` - Из прошлого результата ALU
-- [2] `Sel.LeftALU.ZERO` - 0
+**0. Signal.SELECT_LEFT_ALU:**  
+- [0] `Sel.LeftALU.REGISTER` - Из выбранного регистра (`reg_out2`)  
+- [1] `Sel.LeftALU.ALU` - Из прошлого результата ALU  
+- [2] `Sel.LeftALU.ZERO` - 0  
 - [3] `Sel.LeftALU.PC` - Из PC
-**4. Signal.SELECT_RIGHT_ALU:**
-- [4] `Sel.RightALU.REGISTER` - Из выбранного регистра (`reg_out1`)
-- [5] `Sel.RightALU.DR` - Из DR
+  
+**4. Signal.SELECT_RIGHT_ALU:**  
+- [4] `Sel.RightALU.REGISTER` - Из выбранного регистра (`reg_out1`)  
+- [5] `Sel.RightALU.DR` - Из DR  
 - [6] `Sel.RightALU.ZERO` - 0
-**7. Signal.EXECUTE_ALU:**
-- [7] `Sel.ALUOperations.ADD`
-- [8] `Sel.ALUOperations.SUB`
-- [9] `Sel.ALUOperations.MUL`
-- [10] `Sel.ALUOperations.DIV`
-- [11] `Sel.ALUOperations.RMD`
-- [12] `Sel.ALUOperations.AND`
-- [13] `Sel.ALUOperations.OR`
-- [14] `Sel.ALUOperations.XOR`
+  
+**7. Signal.EXECUTE_ALU:**  
+- [7] `Sel.ALUOperations.ADD`  
+- [8] `Sel.ALUOperations.SUB`  
+- [9] `Sel.ALUOperations.MUL`  
+- [10] `Sel.ALUOperations.DIV`  
+- [11] `Sel.ALUOperations.RMD`  
+- [12] `Sel.ALUOperations.AND`  
+- [13] `Sel.ALUOperations.OR`  
+- [14] `Sel.ALUOperations.XOR`  
 - [15] `Sel.ALUOperations.NOT`
-**16. Signal.LATCH_FLAGS**
-**17. Signal.LATCH_REGISTER**
-- [17] `Sel.RegisterIn.ALU` - Из результата ALU
+  
+**16. Signal.LATCH_FLAGS**  
+
+**17. Signal.LATCH_REGISTER**  
+- [17] `Sel.RegisterIn.ALU` - Из результата ALU  
 - [18] `Sel.RegisterIn.PC` - Из PC
-**19. Signal.CHECK_CONDITION**
-- [19] `Sel.Condition.ZERO` - Из Z-флага
-- [20] `Sel.Condition.GREATER` - Из равенства V == N
-- [21] `Sel.Condition.GREATER_EQUALS` Из V == N and Z == 1
+  
+**19. Signal.CHECK_CONDITION**  
+- [19] `Sel.Condition.ZERO` - Из Z-флага  
+- [20] `Sel.Condition.GREATER` - Из равенства V == N  
+- [21] `Sel.Condition.GREATER_EQUALS` Из V == N and Z == 1  
 - [22] `Sel.Condition.NONE` - Считаем, что условие выполнено (нужно для JMP)
-**23. Signal.LATCH_PC**
-- [23] `Sel.PC.ALU` - Из результата ALU
-- [24] `Sel.PC.PLUS_TWO` - PC = PC + 2
-- [25] `Sel.PC.PLUS_FOUR` - PC = PC + 4
-- [26] `Sel.PC.BRANCH_CONDITION` - PC = ALU if branch_condititon = 1
+  
+**23. Signal.LATCH_PC**  
+- [23] `Sel.PC.ALU` - Из результата ALU  
+- [24] `Sel.PC.PLUS_TWO` - PC = PC + 2  
+- [25] `Sel.PC.PLUS_FOUR` - PC = PC + 4  
+- [26] `Sel.PC.BRANCH_CONDITION` - PC = ALU if branch_condititon = 1  
 - [27] `Sel.PC.BRANCH_CONDITION_INVERSE` - PC = ALU if branch_condititon = 0
-**28 Signal.LATCH_mPC**
-- [28] `Sel.MicroPC.OPCODE` - Instruction Decoder декодирует старшие 6 бит в IR и передает результат в mPC
-- [29] `Sel.MicroPC.OP_FETCH` - Instruction Decoder декодирует биты 8-9 и передает результат в mPC
-- [30] `Sel.MicroPC.ZERO` - mPC = 0
+  
+**28 Signal.LATCH_mPC**  
+- [28] `Sel.MicroPC.OPCODE` - Instruction Decoder декодирует старшие 6 бит в IR и передает результат в mPC  
+- [29] `Sel.MicroPC.OP_FETCH` - Instruction Decoder декодирует биты 8-9 и передает результат в mPC  
+- [30] `Sel.MicroPC.ZERO` - mPC = 0  
 - [31] `Sel.MicroPC.PLUS_ONE` - mPC = mPC + 1
-**32 Signal.LATCH_AR**
-- [32] `Sel.AR.REGISTER` - Из выбранного регистра (`reg_out1`) 
-- [33] `Sel.AR.ALU` - Из результата ALU
+  
+**32 Signal.LATCH_AR**  
+- [32] `Sel.AR.REGISTER` - Из выбранного регистра (`reg_out1`)  
+- [33] `Sel.AR.ALU` - Из результата ALU  
 - [34] `Sel.AR.PC` - Из PC
-**35 Signal.LATCH_DR**
-- [36] `Sel.DR.LOW` - Загрузить младшие два байта из памяти по адресу из AR
+  
+**35 Signal.LATCH_DR**  
+- [36] `Sel.DR.LOW` - Загрузить младшие два байта из памяти по адресу из AR  
 - [37] `Sel.DR.FULL` - Загрузить машинное слово из памяти по адресу из AR
-**38 Signal.WRITE** - Записать машинное слово по адресу в AR
-- [38] `Sel.DataIn.Register` - Машинное слово возьмется из выбранного регистра (`reg_out1`)
+  
+**38 Signal.WRITE** - Записать машинное слово по адресу в AR  
+- [38] `Sel.DataIn.Register` - Машинное слово возьмется из выбранного регистра (`reg_out1`)  
 - [39] `Sel.DataIn.ALU` - Машинное слово возьмется из резульатат ALU
-**40 Signal.SELECT_REGS**: Выбрать регистры, номера которых указаны в младшем байте IR (reg_ou1 - 4..7 биты, reg_out2 - 0..3 биты)
-**41 Signal.LATCH_IR**
-**42 Signal.HALT**
-### Datapath
+  
+**40 Signal.SELECT_REGS**: Выбрать регистры, номера которых указаны в младшем байте IR (reg_ou1 - 4..7 биты, reg_out2 - 0..3 биты) 
+
+**41 Signal.LATCH_IR**  
+
+**42 Signal.HALT**  
+
+### Datapath  
 ![Datapath](datapath.png)
 Реализовано в классе `Datapath`
+### ControlUnit
+![Control Unit](controlunit.png)
+Реализовано в классе `ControlUnit`
