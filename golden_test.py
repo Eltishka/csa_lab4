@@ -22,8 +22,7 @@ def test_translator_and_machine(golden, caplog):
         target = os.path.join(tmpdirname, "target.bin")
         target_hex = os.path.join(tmpdirname, "target.bin.hex")
         inp = golden["in_stdin"]
-        char_io = golden["char_io"]
-        if char_io and golden["null_terminated_in"] == 1:
+        if golden["null_terminated_in"] == 1:
             inp += "\0"
         with open(source, "w", encoding="utf-8") as file:
             file.write(golden["in_source"])
