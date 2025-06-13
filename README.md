@@ -224,3 +224,15 @@ char_io = 0/1 - поток ввода состоит из машинных сл�
 ### ControlUnit
 ![Control Unit](controlunit.png)
 Реализовано в классе `ControlUnit`
+## Тестирование
+Тестирование выполняется при помощи golden test-ов.
+Тесты реализованы в [golden_test.py](golden_test.py)
+Конфигурации:
+- [golden/cat.yml](golden/cat.yml)
+- [golden/bigint.yml](golden/bigint.yml)
+- [golden/factorial.yml](golden/factorial.yml)
+- [golden/hello_username.yml](golden/hello_username.yml)
+- [golden/hello_world.yml](golden/hello_world.yml)
+- [golden/max_palindrom.yml](golden/max_palindrom.yml)
+- [golden/sort.yml](golden/sort.yml)
+- [golden/statement.yml](golden/statement.yml)
